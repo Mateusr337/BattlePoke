@@ -4,12 +4,15 @@ import RegisterPage from "./pages/register";
 
 import "./styles/reset.css";
 import "./styles/app.css";
+import LoginPage from "./pages/login";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<RegisterPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/profile" element={<>ola people</>} />
       </Routes>
     </BrowserRouter>
   );

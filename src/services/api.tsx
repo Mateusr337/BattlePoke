@@ -16,15 +16,34 @@ function createUser(
   password: string,
   imageURL: string
 ) {
-  const promise = api.post("/users", {
+  const data = {
     name,
     email,
     password,
     imageURL,
-  });
+  };
+
+  const promise = api.post("/users", data);
+  return promise;
+}
+
+function validUser(email: string, password: string) {
+  const data = {
+    email,
+    password,
+  };
+
+  const promise = api.post("/users/login", data);
+  return promise;
+}
+
+function findSession(token: string) {
+  const promise = api.get(`/users/${token}`);
   return promise;
 }
 
 export default {
   createUser,
+  validUser,
+  findSession,
 };
