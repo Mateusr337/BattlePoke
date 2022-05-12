@@ -10,14 +10,18 @@ const config = (token: string) => {
   };
 };
 
-function createUser(name: string, email: string, password: string) {
-  const data = {
+function createUser(
+  name: string,
+  email: string,
+  password: string,
+  imageURL: string
+) {
+  const promise = api.post("/users", {
     name,
     email,
     password,
-  };
-
-  const promise = api.post("/users", data);
+    imageURL,
+  });
   return promise;
 }
 

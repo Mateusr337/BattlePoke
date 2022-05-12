@@ -16,13 +16,14 @@ export default function RegisterPage() {
   const [data, setData] = useState({
     email: "",
     name: "",
+    imageURL: "",
     password: "",
     confirmPassword: "",
   });
 
   function sendUserData(e: any) {
     api
-      .createUser(data.name, data.email, data.password)
+      .createUser(data.name, data.email, data.password, data.imageURL)
       .then((response) => {
         navigate("/");
       })
@@ -65,6 +66,14 @@ export default function RegisterPage() {
         <Input
           placeholder="name"
           name="name"
+          onChange={(e) => handleChange(e, data, setData)}
+          disabled={isLoading}
+          required
+        />
+
+        <Input
+          placeholder="image URL"
+          name="imageURL"
           onChange={(e) => handleChange(e, data, setData)}
           disabled={isLoading}
           required
