@@ -42,8 +42,14 @@ function findSession(token: string) {
   return promise;
 }
 
+function findUser(token: string) {
+  const promise = api.get("/users", config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
   findSession,
+  findUser,
 };
