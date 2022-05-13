@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }: any) {
-  const persistedAuth = JSON.parse(localStorage.getItem("auth") as string);
+  const persistedAuth = JSON.parse(localStorage.getItem("token") as string);
   const [token, setToken] = useState(persistedAuth);
 
   const login = (authData: string) => {

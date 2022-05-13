@@ -23,7 +23,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     context.token &&
-      api.findSession(context.token).then(({ data }) => console.log(data));
+      api.findSession(context.token).then(({ data }) => navigate("/profile"));
   }, [context.token]);
 
   function validUser(e: any) {
@@ -32,8 +32,9 @@ export default function LoginPage() {
 
     api
       .validUser(data.email, data.password)
-      .then(({ data }) => {
-        context.login(data.token);
+      .then(async ({ data }) => {
+        await context.login(data.token);
+        navigate("/profile");
       })
       .catch((error) => {
         toast.error(error.response.data);
