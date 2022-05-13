@@ -38,7 +38,7 @@ function validUser(email: string, password: string) {
 }
 
 function findSession(token: string) {
-  const promise = api.get(`/users/${token}`);
+  const promise = api.post(`/users/validToken`, {}, config(token));
   return promise;
 }
 

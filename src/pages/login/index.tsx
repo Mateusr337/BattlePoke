@@ -23,7 +23,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     context.token &&
-      api.findSession(context.token).then(({ data }) => navigate("/profile"));
+      api.findSession(context.token).then(() => navigate("/profile"));
   }, [context.token]);
 
   function validUser(e: any) {
