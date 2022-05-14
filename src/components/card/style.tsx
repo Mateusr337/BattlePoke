@@ -1,11 +1,21 @@
 import styled from "styled-components";
+interface Props {
+  level: string;
+}
 
-export const Container = styled.div`
+export const Container = styled.div<Props>`
   width: 150px;
   height: 200px;
 
-  border: 3px solid #d6962a;
+  border: 3px solid
+    ${(p) => {
+      if (p.level === "common") return "green;";
+      if (p.level === "rare") return "purple;";
+      if (p.level === "epic") return "orange;";
+      if (p.level === "mythical") return "gold;";
+    }};
   border-radius: 8px;
+  background: #f5e15e;
   gap: 5px;
 
   display: flex;
@@ -16,7 +26,7 @@ export const Image = styled.img`
   width: 100%;
   height: 100px;
 
-  border-radius: 5px 5px 0px 0px;
+  padding: 10px;
 `;
 
 export const Data = styled.div`
@@ -24,23 +34,26 @@ export const Data = styled.div`
   min-height: 40px;
 
   font-family: "Montserrat";
-  font-weight: 500;
+  font-weight: 600;
 
   padding: 0px 10px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 export const Types = styled.div`
-  width: 100%;
   height: 40px;
 
   gap: 10px;
+  margin: 0px 10px;
+  background: #ffffff;
 
   display: flex;
   justify-content: center;
+  align-items: center;
 
   img {
     width: 30px;
