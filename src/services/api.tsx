@@ -47,9 +47,15 @@ function findUser(token: string) {
   return promise;
 }
 
+function findCards(token: string) {
+  const promise = api.get("/cards/user", config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
   findSession,
   findUser,
+  findCards,
 };

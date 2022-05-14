@@ -29,7 +29,7 @@ export const UserImage = styled.img`
   height: 65px;
 
   border-radius: 50%;
-  border: 2px solid #eebb3b;
+  border: 3px solid #d6962a;
 `;
 
 export const UserInfo = styled.div`
