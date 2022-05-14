@@ -41,3 +41,16 @@ export const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const ToReceive = styled.div`
+  gap: 5px;
+
+  font-family: "Montserrat";
+  font-size: small;
+  font-weight: 900;
+  color: #d6962a;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

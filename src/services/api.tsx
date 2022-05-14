@@ -47,7 +47,7 @@ function findUser(token: string) {
   return promise;
 }
 
-function findCards(token: string) {
+function findCardsByUser(token: string) {
   const promise = api.get("/cards/user", config(token));
   return promise;
 }
@@ -57,5 +57,5 @@ export default {
   validUser,
   findSession,
   findUser,
-  findCards,
+  findCardsByUser,
 };

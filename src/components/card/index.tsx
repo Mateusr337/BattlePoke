@@ -1,4 +1,4 @@
-import * as CardInterface from "../../interfaces/cardInterface";
+import { CardsByUser } from "../../interfaces/cardsByUserInterface";
 import Electric from "../pokemonsTypes/electric";
 import Fire from "../pokemonsTypes/fire";
 import Flying from "../pokemonsTypes/flying";
@@ -10,11 +10,7 @@ import Psychic from "../pokemonsTypes/psychic";
 import Water from "../pokemonsTypes/water";
 import { Container, Data, Image, Types } from "./style";
 
-interface Props {
-  card: any;
-}
-
-export default function Card({ card }: Props) {
+export default function Card({ card }: CardsByUser) {
   return (
     <Container level={card.pokemon.pokemonLevel.name}>
       <Image src={card.pokemon.imageURL} />

@@ -10,7 +10,7 @@ export default function Cards() {
 
   useEffect(() => {
     if (context.token)
-      api.findCards(context.token).then((response) => {
+      api.findCardsByUser(context.token).then((response) => {
         setCardsList(response.data.PokemonUser);
         console.log(response.data);
       });
