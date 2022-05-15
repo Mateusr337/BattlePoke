@@ -5,6 +5,7 @@ import RegisterPage from "./pages/register";
 import "./styles/reset.css";
 import "./styles/app.css";
 import LoginPage from "./pages/login";
+import ProfilePage from "./pages/profile";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<LoginPage />} />
-        <Route path="/profile" element={<>ola people</>} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   );

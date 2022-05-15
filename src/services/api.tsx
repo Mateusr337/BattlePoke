@@ -42,8 +42,32 @@ function findSession(token: string) {
   return promise;
 }
 
+function findUser(token: string) {
+  const promise = api.get("/users", config(token));
+  return promise;
+}
+
+function findCardsByUser(token: string) {
+  const promise = api.get("/cards/user", config(token));
+  return promise;
+}
+
+function findCards(token: string) {
+  const promise = api.get("/cards", config(token));
+  return promise;
+}
+
+function createPokemonUser(token: string, cards: Array<number>) {
+  const promise = api.post("/cards", { cards }, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
   findSession,
+  findUser,
+  findCardsByUser,
+  findCards,
+  createPokemonUser,
 };

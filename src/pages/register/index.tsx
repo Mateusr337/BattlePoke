@@ -22,6 +22,8 @@ export default function RegisterPage() {
   });
 
   function sendUserData(e: any) {
+    e.preventDefault();
+
     api
       .createUser(data.name, data.email, data.password, data.imageURL)
       .then((response) => {
@@ -31,6 +33,8 @@ export default function RegisterPage() {
       .catch((error) => {
         errorsMessage(error.message);
       });
+
+    setIsLoading(false);
   }
 
   async function validInputs(e: any) {
@@ -99,6 +103,7 @@ export default function RegisterPage() {
 
         <Buttons>
           <Button
+            type="button"
             disabled={isLoading}
             color="#D6962A"
             background="#528F92"
@@ -107,7 +112,9 @@ export default function RegisterPage() {
             I already have an account
           </Button>
 
-          <Button disabled={isLoading}>Register</Button>
+          <Button type="submit" disabled={isLoading}>
+            Register
+          </Button>
         </Buttons>
       </Form>
     </Container>
