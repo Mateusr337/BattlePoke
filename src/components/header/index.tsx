@@ -28,11 +28,13 @@ export default function Header() {
   useEffect(() => {
     api.findCardsByUser(context.token).then(({ data }) => {
       if (data.PokemonUser.length < 3) return setToReceive("0");
+
       if (data.PokemonUser.length < 5 && data.level >= 1)
+        return setToReceive("2");
+      if (data.PokemonUser.length < 7 && data.level >= 2)
+        return setToReceive("2");
+      if (data.PokemonUser.length < 7 && data.level >= 3)
         return setToReceive("1");
-      // if (data.PokemonUser.length < 5) return setToReceive("2");
-      // if (data.PokemonUser.length < 5) return setToReceive("3");
-      // if (data.PokemonUser.length < 5) return setToReceive("4");
     });
   }, []);
 
@@ -57,7 +59,12 @@ export default function Header() {
         </ToReceive>
       </Container>
 
-      {toReceiveScreen && <ToReceiveNewCard level={user.level} />}
+      {toReceiveScreen && (
+        <ToReceiveNewCard
+          level={user.level}
+          setToReceiveScreen={setToReceiveScreen}
+        />
+      )}
 
       <ToastContainer limit={1} position={"top-center"} />
     </>

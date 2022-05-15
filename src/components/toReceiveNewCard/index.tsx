@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { PokemonUser } from "../../interfaces/PokemonUser";
 import api from "../../services/api";
 import Button from "../Button";
 import Card from "../card";
@@ -8,11 +7,12 @@ import { Container, Footer, Title } from "./style";
 
 interface Props {
   level: string;
+  setToReceiveScreen: React.Dispatch<SetStateAction<boolean>>;
 }
 
-export default function ToReceiveNewCard({ level }: Props) {
+export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
   const context = useAuth();
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState([] as any);
   const [numberOfCards, setNumberOfCards] = useState("null" as string);
   const [selectedCards, setSelectedCards] = useState([] as Array<number>);
 
@@ -23,6 +23,8 @@ export default function ToReceiveNewCard({ level }: Props) {
 
     if (level === "0") setNumberOfCards("3");
     if (level === "1") setNumberOfCards("2");
+    if (level === "2") setNumberOfCards("2");
+    if (level === "3") setNumberOfCards("1");
   }, []);
 
   useEffect(() => {
@@ -31,32 +33,56 @@ export default function ToReceiveNewCard({ level }: Props) {
 
     if (selectedCards.length > 2 && level === "1")
       setSelectedCards(selectedCards.slice(-2));
+
+    if (selectedCards.length > 2 && level === "2")
+      setSelectedCards(selectedCards.slice(-2));
+
+    if (selectedCards.length > 1 && level === "3")
+      setSelectedCards(selectedCards.slice(-1));
   }, [selectedCards]);
 
-  console.log(selectedCards);
+  function getCards() {
+    if (selectedCards.length < 3 && level === "0") return;
+    if (selectedCards.length < 2 && level === "1") return;
+    if (selectedCards.length < 2 && level === "2") return;
+    if (selectedCards.length < 1 && level === "3") return;
+
+    api.createPokemonUser(context.token, selectedCards).then((response) => {
+      setToReceiveScreen(false);
+    });
+  }
 
   return (
     <Container>
       <Title>Chose {numberOfCards} cards</Title>
 
-      {cards.map((card, i) => {
+      {cards.map((card: any) => {
         const formatCard = { pokemon: card } as any;
 
         let selected;
-        if (selectedCards.includes(i)) selected = true;
+        if (selectedCards.includes(card.id)) selected = true;
 
-        return (
-          <Card
-            action={() => setSelectedCards([...selectedCards, i])}
-            key={i}
-            card={formatCard}
-            selected={selected}
-          />
-        );
+        let filter: string = "";
+        if (level === "0") filter = "common";
+        if (level === "1") filter = "rare";
+        if (level === "1") filter = "epic";
+        if (level === "2") filter = "mythical";
+
+        if (card.pokemonLevel.name === filter)
+          return (
+            <Card
+              action={() => setSelectedCards([...selectedCards, card.id])}
+              key={card.id}
+              card={formatCard}
+              selected={selected}
+            />
+          );
       })}
 
       <Footer>
-        <Button background="#1AB81F">Chose</Button>
+        <Button onClick={getCards} background="#1AB81F">
+          Chose
+        </Button>
       </Footer>
     </Container>
   );

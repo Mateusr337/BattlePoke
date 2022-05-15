@@ -57,6 +57,11 @@ function findCards(token: string) {
   return promise;
 }
 
+function createPokemonUser(token: string, cards: Array<number>) {
+  const promise = api.post("/cards", { cards }, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -64,4 +69,5 @@ export default {
   findUser,
   findCardsByUser,
   findCards,
+  createPokemonUser,
 };

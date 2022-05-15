@@ -12,7 +12,6 @@ export default function Cards() {
     if (context.token)
       api.findCardsByUser(context.token).then((response) => {
         setCardsList(response.data.PokemonUser);
-        console.log(response.data);
       });
   }, [context.token]);
 
