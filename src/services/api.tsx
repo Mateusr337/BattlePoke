@@ -62,6 +62,11 @@ function createPokemonUser(token: string, cards: Array<number>) {
   return promise;
 }
 
+function findPokemonsByLevel(token: string, level: number) {
+  const promise = api.get(`/cards/battles/${level}`, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -70,4 +75,5 @@ export default {
   findCardsByUser,
   findCards,
   createPokemonUser,
+  findPokemonsByLevel,
 };
