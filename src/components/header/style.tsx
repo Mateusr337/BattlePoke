@@ -30,6 +30,8 @@ export const UserImage = styled.img`
 
   border-radius: 50%;
   border: 3px solid #d6962a;
+
+  cursor: pointer;
 `;
 
 export const UserInfo = styled.div`

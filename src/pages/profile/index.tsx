@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BottomMenu from "../../components/bottomMenu";
 import Cards from "../../components/cards";
 import Header from "../../components/header";
 import { Container } from "./style";
@@ -9,6 +10,7 @@ export default function ProfilePage() {
     <Container>
       <Header />
       {page}
+      <BottomMenu />
     </Container>
   );
 }

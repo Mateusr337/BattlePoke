@@ -7,12 +7,14 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdForwardToInbox } from "react-icons/md";
 import ToReceiveNewCard from "../toReceiveNewCard";
+import Menu from "../menu";
 
 export default function Header() {
   const context = useAuth();
   const [user, setUser] = useState({} as User);
   const [toReceive, setToReceive] = useState("false");
   const [toReceiveScreen, setToReceiveScreen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     api
@@ -38,11 +40,15 @@ export default function Header() {
     });
   }, []);
 
+  function toggleShowMenu() {
+    showMenu ? setShowMenu(false) : setShowMenu(true);
+  }
+
   return (
     <>
       <Container>
         <DivFlex>
-          <UserImage src={user.imageURL} />
+          <UserImage src={user.imageURL} onClick={toggleShowMenu} />
 
           <UserInfo>
             <span>{user.name}</span>
@@ -50,16 +56,18 @@ export default function Header() {
           </UserInfo>
         </DivFlex>
 
+        {showMenu && <Menu />}
+
         <ToReceive onClick={() => setToReceiveScreen(true)}>
           <MdForwardToInbox
             size={30}
             color={toReceive !== "false" ? "#d6962a" : "#000000"}
           />
-          <span>Get new cards</span>
+          {toReceive === "true" && <span>Get new cards</span>}
         </ToReceive>
       </Container>
 
-      {toReceiveScreen && (
+      {toReceiveScreen && toReceive !== "false" && (
         <ToReceiveNewCard
           level={user.level}
           setToReceiveScreen={setToReceiveScreen}
