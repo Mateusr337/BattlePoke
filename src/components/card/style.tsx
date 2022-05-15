@@ -1,6 +1,7 @@
 import styled from "styled-components";
 interface Props {
   level: string;
+  selected?: boolean;
 }
 
 export const Container = styled.div<Props>`
@@ -14,6 +15,7 @@ export const Container = styled.div<Props>`
       if (p.level === "epic") return "orange;";
       if (p.level === "mythical") return "gold;";
     }};
+  ${(p) => p.selected && "opacity: 0.5;"}
   border-radius: 8px;
   background: #f5e15e;
   gap: 5px;

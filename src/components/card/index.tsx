@@ -10,9 +10,18 @@ import Psychic from "../pokemonsTypes/psychic";
 import Water from "../pokemonsTypes/water";
 import { Container, Data, Image, Types } from "./style";
 
-export default function Card({ card }: CardsByUser) {
+interface Props {
+  action?: any;
+  selected?: boolean;
+}
+
+export default function Card({ card, action, selected }: CardsByUser & Props) {
   return (
-    <Container level={card.pokemon.pokemonLevel.name}>
+    <Container
+      onClick={action}
+      level={card.pokemon.pokemonLevel.name}
+      selected={selected}
+    >
       <Image src={card.pokemon.imageURL} />
 
       <Types>

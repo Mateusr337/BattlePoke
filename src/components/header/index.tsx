@@ -6,11 +6,13 @@ import { Container, DivFlex, ToReceive, UserImage, UserInfo } from "./style";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdForwardToInbox } from "react-icons/md";
+import ToReceiveNewCard from "../toReceiveNewCard";
 
 export default function Header() {
   const context = useAuth();
   const [user, setUser] = useState({} as User);
   const [toReceive, setToReceive] = useState("false");
+  const [toReceiveScreen, setToReceiveScreen] = useState(false);
 
   useEffect(() => {
     api
@@ -26,10 +28,11 @@ export default function Header() {
   useEffect(() => {
     api.findCardsByUser(context.token).then(({ data }) => {
       if (data.PokemonUser.length < 3) return setToReceive("0");
-      if (data.PokemonUser.length < 5) return setToReceive("1");
-      if (data.PokemonUser.length < 5) return setToReceive("2");
-      if (data.PokemonUser.length < 5) return setToReceive("3");
-      if (data.PokemonUser.length < 5) return setToReceive("4");
+      if (data.PokemonUser.length < 5 && data.level >= 1)
+        return setToReceive("1");
+      // if (data.PokemonUser.length < 5) return setToReceive("2");
+      // if (data.PokemonUser.length < 5) return setToReceive("3");
+      // if (data.PokemonUser.length < 5) return setToReceive("4");
     });
   }, []);
 
@@ -45,7 +48,7 @@ export default function Header() {
           </UserInfo>
         </DivFlex>
 
-        <ToReceive>
+        <ToReceive onClick={() => setToReceiveScreen(true)}>
           <MdForwardToInbox
             size={30}
             color={toReceive !== "false" ? "#d6962a" : "#000000"}
@@ -53,6 +56,8 @@ export default function Header() {
           <span>Get new cards</span>
         </ToReceive>
       </Container>
+
+      {toReceiveScreen && <ToReceiveNewCard level={user.level} />}
 
       <ToastContainer limit={1} position={"top-center"} />
     </>

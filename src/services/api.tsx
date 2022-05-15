@@ -52,10 +52,16 @@ function findCardsByUser(token: string) {
   return promise;
 }
 
+function findCards(token: string) {
+  const promise = api.get("/cards", config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
   findSession,
   findUser,
   findCardsByUser,
+  findCards,
 };
