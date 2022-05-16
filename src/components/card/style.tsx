@@ -22,11 +22,17 @@ export const Container = styled.div<Props>`
 
   display: flex;
   flex-direction: column;
+
+  span {
+    text-align: center;
+    font-family: "montserrat";
+    font-weight: 500;
+  }
 `;
 
 export const Image = styled.img`
   width: 100%;
-  height: 100px;
+  height: 90px;
 
   padding: 10px;
 `;

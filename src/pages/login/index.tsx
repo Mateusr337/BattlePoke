@@ -7,7 +7,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import errorsMessage from "../../utils/errorsMessage";
 import { Buttons, Container, Text } from "./styles";
 import useAuth from "../../hooks/useAuth";
 

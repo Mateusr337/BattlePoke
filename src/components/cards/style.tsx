@@ -5,9 +5,9 @@ export const Container = styled.div`
   min-height: 100vh;
 
   padding: 100px 20px;
-  gap: 10px;
+  gap: 15px;
 
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
 `;

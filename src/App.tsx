@@ -6,6 +6,7 @@ import ProfilePage from "./pages/profile";
 import "./styles/reset.css";
 import "./styles/app.css";
 import Battles from "./pages/battles";
+import Battle from "./pages/battle";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/battleLevels" element={<Battles />} />
+        <Route path="/battle" element={<Battle />} />
       </Routes>
     </BrowserRouter>
   );

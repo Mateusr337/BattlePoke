@@ -11,7 +11,7 @@ import Water from "../pokemonsTypes/water";
 import { Container, Data, Image, Types } from "./style";
 
 interface Props {
-  action?: any;
+  action?: React.MouseEventHandler;
   selected?: boolean;
 }
 
@@ -23,6 +23,8 @@ export default function Card({ card, action, selected }: CardsByUser & Props) {
       selected={selected}
     >
       <Image src={card.pokemon.imageURL} />
+
+      <span>{card.pokemon.name}</span>
 
       <Types>
         {card.pokemon.PokemonTypePokemon.map(
