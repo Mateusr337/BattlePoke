@@ -45,6 +45,9 @@ export const UserInfo = styled.div`
 `;
 
 export const ToReceive = styled.div`
+  width: 120px;
+  height: 60px;
+
   gap: 5px;
 
   font-family: "Montserrat";
@@ -55,6 +58,7 @@ export const ToReceive = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   cursor: pointer;
 `;

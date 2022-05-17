@@ -23,7 +23,7 @@ export default function BattleLevel({ level, action }: Props) {
     <Container onClick={action}>
       <Title>Level {level}</Title>
 
-      {pokemons.map(({ pokemon }: any) => (
+      {pokemons.map((pokemon: any) => (
         <PokemonBox>
           <Image src={pokemon.imageURL} />
           <span>{pokemon.name}</span>

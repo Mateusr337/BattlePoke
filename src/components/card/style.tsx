@@ -2,6 +2,7 @@ import styled from "styled-components";
 interface Props {
   level: string;
   selected?: boolean;
+  life?: number;
 }
 
 export const Container = styled.div<Props>`
@@ -17,7 +18,13 @@ export const Container = styled.div<Props>`
     }};
   ${(p) => p.selected && "opacity: 0.5;"}
   border-radius: 8px;
-  background: #f5e15e;
+
+  background: ${(p) => {
+    let color = "";
+    (p.life || p.life === 0) && (color = p.life <= 0 ? "#000000" : "#f5e15e");
+    return color;
+  }};
+
   gap: 5px;
 
   display: flex;

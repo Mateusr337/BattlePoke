@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import api from "../../services/api";
 import Button from "../Button";
 import Card from "../card";
+import Cards from "../cards";
 import { Container, Footer, Title } from "./style";
 
 interface Props {
@@ -12,9 +13,10 @@ interface Props {
 
 export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
   const context = useAuth();
-  const [cards, setCards] = useState([] as any);
+
+  const [cards, setCards] = useState([] as Array<any>);
   const [numberOfCards, setNumberOfCards] = useState("null" as string);
-  const [selectedCards, setSelectedCards] = useState([] as Array<number>);
+  const [selectedCards, setSelectedCards] = useState([] as Array<any>);
 
   useEffect(() => {
     api.findCards(context.token).then((response) => {
@@ -41,7 +43,7 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
       setSelectedCards(selectedCards.slice(-1));
   }, [selectedCards]);
 
-  function getCards() {
+  async function getCards() {
     if (selectedCards.length < 3 && level === "0") return;
     if (selectedCards.length < 2 && level === "1") return;
     if (selectedCards.length < 2 && level === "2") return;
@@ -57,8 +59,6 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
       <Title>Chose {numberOfCards} cards</Title>
 
       {cards.map((card: any) => {
-        const formatCard = { pokemon: card } as any;
-
         let selected;
         if (selectedCards.includes(card.id)) selected = true;
 
@@ -73,7 +73,7 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
             <Card
               action={() => setSelectedCards([...selectedCards, card.id])}
               key={card.id}
-              card={formatCard}
+              card={card}
               selected={selected}
             />
           );

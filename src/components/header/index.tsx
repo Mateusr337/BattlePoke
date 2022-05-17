@@ -12,9 +12,9 @@ import Menu from "../menu";
 export default function Header() {
   const context = useAuth();
   const [user, setUser] = useState({} as User);
-  const [toReceive, setToReceive] = useState("false");
-  const [toReceiveScreen, setToReceiveScreen] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const [toReceive, setToReceive] = useState("false" as string);
+  const [toReceiveScreen, setToReceiveScreen] = useState(false as boolean);
+  const [showMenu, setShowMenu] = useState(false as boolean);
 
   useEffect(() => {
     api
@@ -29,14 +29,11 @@ export default function Header() {
 
   useEffect(() => {
     api.findCardsByUser(context.token).then(({ data }) => {
-      if (data.PokemonUser.length < 3) return setToReceive("0");
+      if (data.length < 3) return setToReceive("0");
 
-      if (data.PokemonUser.length < 5 && data.level >= 1)
-        return setToReceive("2");
-      if (data.PokemonUser.length < 7 && data.level >= 2)
-        return setToReceive("2");
-      if (data.PokemonUser.length < 7 && data.level >= 3)
-        return setToReceive("1");
+      if (data.length < 5 && user.level >= "1") return setToReceive("2");
+      if (data.length < 7 && user.level >= "2") return setToReceive("2");
+      if (data.length < 7 && user.level >= "3") return setToReceive("1");
     });
   }, []);
 
@@ -63,7 +60,7 @@ export default function Header() {
             size={30}
             color={toReceive !== "false" ? "#d6962a" : "#000000"}
           />
-          {toReceive === "true" && <span>Get new cards</span>}
+          {toReceive !== "false" && <span>Get new cards</span>}
         </ToReceive>
       </Container>
 

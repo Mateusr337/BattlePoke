@@ -1,12 +1,7 @@
-import { Key, useEffect, useState } from "react";
+import React, { Key, SetStateAction, useEffect, useState } from "react";
 import Card from "../../components/card";
 import useAuth from "../../hooks/useAuth";
 import useCards from "../../hooks/useCards";
-import { Pokemon } from "../../interfaces/pokemonInterface";
-import { PokemonLevel } from "../../interfaces/pokemonLevelInterface";
-import { PokemonType } from "../../interfaces/pokemonTypeInterface";
-import { PokemonTypePokemon } from "../../interfaces/pokemonTypePokemon";
-import { PokemonUser } from "../../interfaces/PokemonUser";
 import api from "../../services/api";
 import { Container, Field, FlexColumn, Image, UserInfo } from "./style";
 
@@ -17,7 +12,7 @@ export default function Battle() {
   const [user, setUser] = useState({} as any);
   const [lifeUser, setLifeUser] = useState(1000 as number);
   const [lifeBot, setLifeBot] = useState(1000 as number);
-  const [cardsUser, setCardsUser] = useState(null as null | any);
+  const [cardsUser, setCardsUser] = useState([] as Array<any>);
   const [cardsBot, setCardsBot] = useState([] as Array<any>);
 
   useEffect(() => {
@@ -32,9 +27,48 @@ export default function Battle() {
         .findPokemonsByLevel(userContext.token, cardsContext.cards.level)
         .then((response) => {
           setCardsBot(response.data);
-          console.log(response.data);
         });
   }, [cardsContext.cards.level]);
+
+  useEffect(() => {
+    if (cardsBot.length > 0 && cardsUser.length > 0) {
+      setTimeout(() => {
+        damageRound(cardsUser, cardsBot, setCardsBot, setLifeBot, lifeBot);
+      }, 2 * 1000);
+
+      setTimeout(() => {
+        damageRound(cardsBot, cardsUser, setCardsUser, setLifeUser, lifeUser);
+      }, 4 * 1000);
+    }
+  }, [cardsUser]);
+
+  function damageRound(
+    cardsAttack: Array<any>,
+    cardsDefense: Array<any>,
+    setCardsDefense: React.Dispatch<SetStateAction<Array<any>>>,
+    setLifeDefense: React.Dispatch<SetStateAction<number>>,
+    lifeDefense: number
+  ) {
+    if (lifeBot > 0 && lifeUser > 0) {
+      cardsAttack.map((pokemon: any, i: number) => {
+        const damage = pokemon.attack;
+        const cards = cardsDefense;
+
+        if (parseInt(cardsDefense[i].life) > 0) {
+          cards[i].life = cards[i].life - damage;
+        } else {
+          setLifeDefense(lifeDefense - damage);
+        }
+
+        setCardsDefense(cards);
+      });
+    }
+  }
+
+  if (lifeBot < 0 || lifeUser < 0) {
+    const winner = lifeBot <= lifeUser ? user.name : "Bot";
+    alert(`WINNER: ${winner}`);
+  }
 
   return (
     <Container>
@@ -54,21 +88,9 @@ export default function Battle() {
 
       <Field>
         {cardsUser !== null &&
-          cardsUser.PokemonUser.map(
-            (
-              card: PokemonUser & {
-                pokemon: Pokemon & {
-                  pokemonLevel: PokemonLevel;
-                  PokemonTypePokemon: PokemonTypePokemon[] & {
-                    pokemonType: PokemonType;
-                  };
-                };
-              },
-              i: Key | null | undefined
-            ) => {
-              return <Card key={i} card={card} />;
-            }
-          )}
+          cardsUser.map((card: any, i: number) => {
+            return <Card key={i} card={card} />;
+          })}
       </Field>
 
       <UserInfo position="bottom">

@@ -22,7 +22,7 @@ export default function Battles() {
   useEffect(() => {
     if (userContext.token)
       api.findCardsByUser(userContext.token).then((response) => {
-        setCardsUser(response.data.PokemonUser);
+        setCardsUser(response.data);
       });
   }, [userContext.token]);
 
@@ -55,14 +55,14 @@ export default function Battles() {
         <CardsContainer>
           {cardsUser.map((card, i) => {
             let select: boolean = false;
-            if (selectedCards.includes(card.pokemon.id)) select = true;
+            if (selectedCards.includes(card.id)) select = true;
 
             return (
               <Card
                 selected={select}
                 key={i}
                 card={card}
-                action={() => selectCards(card.pokemon.id)}
+                action={() => selectCards(card.id)}
               />
             );
           })}
