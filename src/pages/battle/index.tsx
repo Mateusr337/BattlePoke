@@ -1,4 +1,4 @@
-import React, { Key, SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import Card from "../../components/card";
 import useAuth from "../../hooks/useAuth";
 import useCards from "../../hooks/useCards";
@@ -8,6 +8,7 @@ import { Container, Field, FlexColumn, Image, UserInfo } from "./style";
 export default function Battle() {
   const userContext = useAuth();
   const cardsContext = useCards();
+  const [render, setRender] = useState(0 as number);
 
   const [user, setUser] = useState({} as any);
   const [lifeUser, setLifeUser] = useState(1000 as number);
@@ -32,42 +33,64 @@ export default function Battle() {
 
   useEffect(() => {
     if (cardsBot.length > 0 && cardsUser.length > 0) {
-      setTimeout(() => {
-        damageRound(cardsUser, cardsBot, setCardsBot, setLifeBot, lifeBot);
-      }, 2 * 1000);
-
-      setTimeout(() => {
-        damageRound(cardsBot, cardsUser, setCardsUser, setLifeUser, lifeUser);
-      }, 4 * 1000);
+      startRound();
     }
-  }, [cardsUser]);
+  }, [cardsUser.length, render]);
 
-  function damageRound(
+  async function startRound() {
+    setTimeout(() => {
+      console.log("oi");
+      console.log(cardsBot);
+      damage(cardsUser, cardsBot, setCardsBot, setLifeBot, lifeBot);
+    }, 2 * 1000);
+
+    setTimeout(() => {
+      console.log("hello");
+      console.log(cardsUser);
+      damage(cardsBot, cardsUser, setCardsUser, setLifeUser, lifeUser);
+    }, 4 * 1000);
+
+    setTimeout(() => setRender(render + 1), 4 * 1000);
+  }
+
+  function damage(
     cardsAttack: Array<any>,
     cardsDefense: Array<any>,
     setCardsDefense: React.Dispatch<SetStateAction<Array<any>>>,
     setLifeDefense: React.Dispatch<SetStateAction<number>>,
     lifeDefense: number
   ) {
-    if (lifeBot > 0 && lifeUser > 0) {
-      cardsAttack.map((pokemon: any, i: number) => {
-        const damage = pokemon.attack;
-        const cards = cardsDefense;
+    if (finishBattle()) return "finished";
 
-        if (parseInt(cardsDefense[i].life) > 0) {
-          cards[i].life = cards[i].life - damage;
-        } else {
-          setLifeDefense(lifeDefense - damage);
-        }
+    const cards = cardsDefense;
 
-        setCardsDefense(cards);
-      });
-    }
+    cardsAttack.map((pokemon: any, i: number) => {
+      const damage = pokemon.attack;
+
+      if (parseInt(cardsDefense[i].life) > 0) {
+        cards[i].life = cards[i].life - damage;
+      } else {
+        setLifeDefense(lifeDefense - damage);
+      }
+    });
+
+    setCardsDefense(cards);
   }
 
-  if (lifeBot < 0 || lifeUser < 0) {
-    const winner = lifeBot <= lifeUser ? user.name : "Bot";
-    alert(`WINNER: ${winner}`);
+  function finishBattle() {
+    if (lifeBot < 0 || lifeUser < 0) {
+      const winner = lifeBot <= lifeUser ? user.name : "Bot";
+      alert(`WINNER: ${winner}`);
+      return true;
+    }
+
+    return false;
+  }
+
+  async function delay(time: number): Promise<void> {
+    return await new Promise((resolver, _reject) => {
+      setTimeout(resolver, time);
+    });
   }
 
   return (
