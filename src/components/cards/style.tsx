@@ -11,3 +11,14 @@ export const Container = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `;
+
+export const Text = styled.span`
+  height: 200px;
+
+  font-family: "Montserrat";
+  font-size: 26px;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+`;

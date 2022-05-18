@@ -5,7 +5,6 @@ import BottomMenu from "../../components/bottomMenu";
 import Button from "../../components/Button";
 import Card from "../../components/card";
 import useAuth from "../../hooks/useAuth";
-import useCards from "../../hooks/useCards";
 import api from "../../services/api";
 import { CardsContainer, Container } from "./style";
 
@@ -13,39 +12,42 @@ export default function Battles() {
   const [levelSelected, setLevelSelected] = useState(null as number | null);
   const [cardsUser, setCardsUser] = useState([] as Array<any>);
   const [selectedCards, setSelectedCards] = useState([] as Array<number>);
-  const userContext = useAuth();
-  const cardsContext = useCards();
+  const context = useAuth();
   const navigate = useNavigate();
 
   const battleLevels = [1, 2, 3] as Array<1 | 2 | 3>;
 
   useEffect(() => {
-    if (userContext.token)
-      api.findCardsByUser(userContext.token).then((response) => {
+    if (context.token)
+      api.findCardsByUser(context.token).then((response) => {
         setCardsUser(response.data);
       });
-  }, [userContext.token]);
+  }, [context.token]);
 
   function selectCards(id: number) {
-    setSelectedCards([...selectedCards, id]);
-
-    if (selectedCards.length > 3) {
-      setSelectedCards(selectedCards.slice(-3));
+    if (selectedCards.length === 3) {
+      setSelectedCards(selectedCards.slice(-2));
     }
+    setSelectedCards([...selectedCards, id]);
   }
 
   function startBattle() {
-    navigate("/battle");
-    cardsContext.SetCards(selectedCards, levelSelected);
+    levelSelected !== null &&
+      api
+        .createBattle(context.token, levelSelected, selectedCards)
+        .then((response) => {
+          const battleId = response.data.id;
+          navigate(`/battles/${battleId}`);
+        });
   }
 
   return (
     <Container>
       {levelSelected === null ? (
         <>
-          {battleLevels.map((level, i) => (
+          {battleLevels.map((level) => (
             <BattleLevel
-              key={i}
+              key={level.toString()}
               level={level}
               action={() => setLevelSelected(level)}
             />

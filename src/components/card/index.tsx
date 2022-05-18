@@ -19,7 +19,7 @@ export default function Card({ card, action, selected }: any) {
   return (
     <Container
       onClick={action}
-      level={card.pokemonLevel.name}
+      level={card.category.name}
       selected={selected}
       life={card.life}
     >
@@ -28,7 +28,7 @@ export default function Card({ card, action, selected }: any) {
       <span>{card.name}</span>
 
       <Types>
-        {card.pokemonTypes.map((type: any, i: number) => {
+        {card.types.map((type: any, i: number) => {
           if (type.name === "water") return <Water key={i} />;
           if (type.name === "fire") return <Fire key={i} />;
           if (type.name === "plant") return <Plant key={i} />;

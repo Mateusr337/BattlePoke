@@ -68,7 +68,7 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
         if (level === "1") filter = "epic";
         if (level === "2") filter = "mythical";
 
-        if (card.pokemonLevel.name === filter)
+        if (card.category.name === filter)
           return (
             <Card
               action={() => setSelectedCards([...selectedCards, card.id])}

@@ -15,8 +15,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/battleLevels" element={<Battles />} />
-        <Route path="/battle" element={<Battle />} />
+        <Route path="/battles" element={<Battles />} />
+        <Route path="/battles/:id" element={<Battle />} />
       </Routes>
     </BrowserRouter>
   );

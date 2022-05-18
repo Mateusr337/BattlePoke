@@ -1,14 +1,16 @@
 import React, { SetStateAction, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "../../components/card";
 import useAuth from "../../hooks/useAuth";
-import useCards from "../../hooks/useCards";
 import api from "../../services/api";
 import { Container, Field, FlexColumn, Image, UserInfo } from "./style";
 
 export default function Battle() {
-  const userContext = useAuth();
-  const cardsContext = useCards();
+  const context = useAuth();
+  const navigate = useNavigate();
+
   const [render, setRender] = useState(0 as number);
+  const [level, setLevel] = useState(0 as number);
 
   const [user, setUser] = useState({} as any);
   const [lifeUser, setLifeUser] = useState(1000 as number);
@@ -17,19 +19,22 @@ export default function Battle() {
   const [cardsBot, setCardsBot] = useState([] as Array<any>);
 
   useEffect(() => {
-    api.findUser(userContext.token).then((response) => setUser(response.data));
+    api.findUser(context.token).then((response) => setUser(response.data));
 
-    api.findCardsByUser(userContext.token).then((response) => {
-      setCardsUser(response.data);
+    const battleId = parseInt(window.location.href.slice(-1));
+
+    api.findBattleById(context.token, battleId).then((response) => {
+      setLevel(response.data.Level);
+
+      api
+        .findPokemonsByLevel(context.token, response.data.Level)
+        .then((response) => setCardsBot(response.data));
     });
 
-    cardsContext.cards.level &&
-      api
-        .findPokemonsByLevel(userContext.token, cardsContext.cards.level)
-        .then((response) => {
-          setCardsBot(response.data);
-        });
-  }, [cardsContext.cards.level]);
+    api
+      .findCardsByBattleAndUser(context.token, battleId)
+      .then((response) => setCardsUser(response.data));
+  }, []);
 
   useEffect(() => {
     if (cardsBot.length > 0 && cardsUser.length > 0) {
@@ -68,19 +73,20 @@ export default function Battle() {
       const damage = pokemon.attack;
 
       if (parseInt(cardsDefense[i].life) > 0) {
-        cards[i].life = cards[i].life - damage;
+        cards[i].life -= damage;
       } else {
         setLifeDefense(lifeDefense - damage);
       }
     });
 
-    setCardsDefense(cards);
+    setCardsDefense([...cards]);
   }
 
   function finishBattle() {
     if (lifeBot < 0 || lifeUser < 0) {
       const winner = lifeBot <= lifeUser ? user.name : "Bot";
       alert(`WINNER: ${winner}`);
+      setTimeout(() => navigate("/profile"), 2 * 1000);
       return true;
     }
 

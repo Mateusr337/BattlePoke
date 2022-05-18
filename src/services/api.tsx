@@ -67,6 +67,25 @@ function findPokemonsByLevel(token: string, level: number) {
   return promise;
 }
 
+function createBattle(
+  token: string,
+  level: number,
+  pokemonsIds: Array<number>
+) {
+  const promise = api.post("/battles", { pokemonsIds, level }, config(token));
+  return promise;
+}
+
+function findCardsByBattleAndUser(token: string, battleId: number) {
+  const promise = api.get(`/cards/users/battles/${battleId}`, config(token));
+  return promise;
+}
+
+function findBattleById(token: string, id: number) {
+  const promise = api.get(`/battles/${id}`, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -76,4 +95,7 @@ export default {
   findCards,
   createPokemonUser,
   findPokemonsByLevel,
+  createBattle,
+  findCardsByBattleAndUser,
+  findBattleById,
 };

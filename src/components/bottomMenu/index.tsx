@@ -8,9 +8,7 @@ export default function BottomMenu() {
     <Container>
       <span onClick={() => navigate("/profile")}>Your cards</span>
 
-      <BattleButton onClick={() => navigate("/battleLevels")}>
-        Battle
-      </BattleButton>
+      <BattleButton onClick={() => navigate("/battles")}>Battle</BattleButton>
 
       <span>Story battles</span>
     </Container>
