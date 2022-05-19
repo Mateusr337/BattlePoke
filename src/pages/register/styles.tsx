@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
 
-  background: #528f92;
+  background: #172b4d;
   gap: 20px;
 
   display: flex;
@@ -14,9 +14,10 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.h1`
-  font-family: "Montserrat";
+  font-family: "Bungee Inline";
   font-size: 60px;
   font-weight: 800;
+  color: #d6962a;
 `;
 
 export const Buttons = styled.div`

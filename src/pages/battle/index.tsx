@@ -1,20 +1,32 @@
 import React, { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 import Card from "../../components/card";
 import useAuth from "../../hooks/useAuth";
 import api from "../../services/api";
-import { Container, Field, FlexColumn, Image, UserInfo } from "./style";
+import {
+  Container,
+  Field,
+  FinalBackground,
+  FinalScreen,
+  FlexColumn,
+  Image,
+  Text,
+  UserInfo,
+  Winner,
+} from "./style";
 
 export default function Battle() {
   const context = useAuth();
   const navigate = useNavigate();
 
   const [render, setRender] = useState(0 as number);
-  const [level, setLevel] = useState(0 as number);
+  const [level, setLevel] = useState("0" as string);
+  const [winner, setWinner] = useState("" as string);
 
   const [user, setUser] = useState({} as any);
-  const [lifeUser, setLifeUser] = useState(1000 as number);
-  const [lifeBot, setLifeBot] = useState(1000 as number);
+  const [lifeUser, setLifeUser] = useState(50 as number);
+  const [lifeBot, setLifeBot] = useState(50 as number);
   const [cardsUser, setCardsUser] = useState([] as Array<any>);
   const [cardsBot, setCardsBot] = useState([] as Array<any>);
 
@@ -37,25 +49,27 @@ export default function Battle() {
   }, []);
 
   useEffect(() => {
-    if (cardsBot.length > 0 && cardsUser.length > 0) {
-      startRound();
-    }
+    startRound();
   }, [cardsUser.length, render]);
 
+  useEffect(() => {
+    if (lifeBot <= 0 || lifeUser <= 0) {
+      setWinner(lifeBot < lifeUser ? user.name : "Bot");
+    }
+  }, [lifeBot, lifeUser]);
+
   async function startRound() {
-    setTimeout(() => {
-      console.log("oi");
-      console.log(cardsBot);
-      damage(cardsUser, cardsBot, setCardsBot, setLifeBot, lifeBot);
-    }, 2 * 1000);
+    if (cardsBot.length > 0 && cardsBot.length > 0) {
+      setTimeout(() => {
+        damage(cardsUser, cardsBot, setCardsBot, setLifeBot, lifeBot);
+      }, 1 * 1000);
 
-    setTimeout(() => {
-      console.log("hello");
-      console.log(cardsUser);
-      damage(cardsBot, cardsUser, setCardsUser, setLifeUser, lifeUser);
-    }, 4 * 1000);
+      setTimeout(() => {
+        damage(cardsBot, cardsUser, setCardsUser, setLifeUser, lifeUser);
+      }, 2 * 1000);
+    }
 
-    setTimeout(() => setRender(render + 1), 4 * 1000);
+    setTimeout(() => setRender(render + 1), 2 * 1000);
   }
 
   function damage(
@@ -65,7 +79,7 @@ export default function Battle() {
     setLifeDefense: React.Dispatch<SetStateAction<number>>,
     lifeDefense: number
   ) {
-    if (finishBattle()) return "finished";
+    if (winner !== "") return "finished";
 
     const cards = cardsDefense;
 
@@ -82,21 +96,11 @@ export default function Battle() {
     setCardsDefense([...cards]);
   }
 
-  function finishBattle() {
-    if (lifeBot < 0 || lifeUser < 0) {
-      const winner = lifeBot <= lifeUser ? user.name : "Bot";
-      alert(`WINNER: ${winner}`);
-      setTimeout(() => navigate("/profile"), 2 * 1000);
-      return true;
+  function exitBattle() {
+    if (lifeBot < lifeUser) {
+      api.updateLevelUser(context.token, `${level}`);
     }
-
-    return false;
-  }
-
-  async function delay(time: number): Promise<void> {
-    return await new Promise((resolver, _reject) => {
-      setTimeout(resolver, time);
-    });
+    navigate("/profile");
   }
 
   return (
@@ -131,6 +135,21 @@ export default function Battle() {
           <span> Life: {lifeUser}</span>
         </FlexColumn>
       </UserInfo>
+
+      {winner && (
+        <>
+          <FinalScreen>
+            <Winner>winner {winner}</Winner>
+            {winner !== "" && winner !== "Bot" && (
+              <Text>You leveled up {parseInt(user.level) + 1}</Text>
+            )}
+
+            <Button onClick={exitBattle}>Return to home</Button>
+          </FinalScreen>
+
+          <FinalBackground />
+        </>
+      )}
     </Container>
   );
 }

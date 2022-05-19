@@ -86,6 +86,15 @@ function findBattleById(token: string, id: number) {
   return promise;
 }
 
+function updateLevelUser(token: string, newLevel: string) {
+  const promise = api.patch(
+    `/users/upLevels`,
+    { level: newLevel },
+    config(token)
+  );
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -98,4 +107,5 @@ export default {
   createBattle,
   findCardsByBattleAndUser,
   findBattleById,
+  updateLevelUser,
 };

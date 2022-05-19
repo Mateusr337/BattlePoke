@@ -9,8 +9,9 @@ import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { Buttons, Container, Text } from "./styles";
 import useAuth from "../../hooks/useAuth";
+import Logo from "../../components/logo";
 
-export default function LoginPage() {
+export default function LoginPage(): JSX.Element {
   const navigate = useNavigate();
   const context = useAuth();
 
@@ -47,7 +48,7 @@ export default function LoginPage() {
     <Container>
       <ToastContainer limit={1} position={"top-center"} />
 
-      <Text>BattlePoke</Text>
+      <Logo />
 
       <Form onSubmit={(e) => validUser(e)}>
         <Input
@@ -71,7 +72,7 @@ export default function LoginPage() {
           <Button
             disabled={isLoading}
             color="#D6962A"
-            background="#528F92"
+            background="#172B4D"
             onClick={() => navigate("/register")}
             type="button"
           >

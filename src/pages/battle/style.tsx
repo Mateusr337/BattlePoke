@@ -57,3 +57,58 @@ export const Field = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `;
+
+export const FinalScreen = styled.div`
+  width: 50vw;
+  height: 50vh;
+
+  background: #ffffff;
+  gap: 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  z-index: 2;
+`;
+
+export const FinalBackground = styled.div`
+  width: 100vw;
+  height: 100vh;
+
+  background: #000000;
+  opacity: 0.8;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1;
+`;
+
+export const Winner = styled.span`
+  font-family: "MontSerrat";
+  font-size: 32px;
+  font-weight: 800;
+`;
+
+export const Text = styled.span`
+  font-family: "MontSerrat";
+  font-size: 26px;
+  font-weight: 500;
+`;

@@ -65,8 +65,8 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
         let filter: string = "";
         if (level === "0") filter = "common";
         if (level === "1") filter = "rare";
-        if (level === "1") filter = "epic";
-        if (level === "2") filter = "mythical";
+        if (level === "2") filter = "epic";
+        if (level === "3") filter = "mythical";
 
         if (card.category.name === filter)
           return (

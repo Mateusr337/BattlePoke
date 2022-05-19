@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { image } from "./constants";
 
 export const Container = styled.div`
   width: 100%;
@@ -7,8 +6,6 @@ export const Container = styled.div`
 
   padding: 40px 30px 120px;
   gap: 20px;
-
-  background-image: url(${image});
 
   display: flex;
   flex-direction: column;

@@ -4,8 +4,9 @@ export const Container = styled.div`
   width: 100%;
   height: 80px;
 
-  background: #528f92;
+  background: #172b4d;
   padding: 0px 20px;
+  color: #d6962a;
 
   display: flex;
   justify-content: space-between;
@@ -37,8 +38,8 @@ export const UserImage = styled.img`
 export const UserInfo = styled.div`
   gap: 8px;
 
-  font-family: "Montserrat";
   font-weight: 500;
+  font-size: 20px;
 
   display: flex;
   flex-direction: column;
@@ -50,7 +51,6 @@ export const ToReceive = styled.div`
 
   gap: 5px;
 
-  font-family: "Montserrat";
   font-size: small;
   font-weight: 900;
   color: #d6962a;

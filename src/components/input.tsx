@@ -11,11 +11,9 @@ export const Input = styled.input`
 
   font-size: 20px;
   font-weight: bold;
-  font-family: "Montserrat";
 
   &::placeholder {
     color: #9f9f9f;
-    font-family: "Montserrat";
     font-style: italic;
   }
 

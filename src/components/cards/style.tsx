@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
 
-  padding: 100px 20px;
+  padding: 0px 20px;
   gap: 15px;
 
   display: flex;
@@ -15,7 +15,6 @@ export const Container = styled.div`
 export const Text = styled.span`
   height: 200px;
 
-  font-family: "Montserrat";
   font-size: 26px;
   font-weight: 500;
 

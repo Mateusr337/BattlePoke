@@ -1,4 +1,4 @@
-import { CardsByUser } from "../../interfaces/cardsByUserInterface";
+import { Pokemon } from "../../interfaces/pokemonInterface";
 import Electric from "../pokemonsTypes/electric";
 import Fire from "../pokemonsTypes/fire";
 import Flying from "../pokemonsTypes/flying";
@@ -13,9 +13,10 @@ import { Container, Data, Image, Types } from "./style";
 interface Props {
   action?: React.MouseEventHandler;
   selected?: boolean;
+  card: Pokemon;
 }
 
-export default function Card({ card, action, selected }: any) {
+export default function Card({ card, action, selected }: Props) {
   return (
     <Container
       onClick={action}

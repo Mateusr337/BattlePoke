@@ -4,12 +4,15 @@ import BattleLevel from "../../components/battleLevel";
 import BottomMenu from "../../components/bottomMenu";
 import Button from "../../components/Button";
 import Card from "../../components/card";
+import TitleTopic from "../../components/titleTopic";
 import useAuth from "../../hooks/useAuth";
+import { User } from "../../interfaces/userInterface";
 import api from "../../services/api";
 import { CardsContainer, Container } from "./style";
 
 export default function Battles() {
   const [levelSelected, setLevelSelected] = useState(null as number | null);
+  const [user, setUser] = useState({} as User);
   const [cardsUser, setCardsUser] = useState([] as Array<any>);
   const [selectedCards, setSelectedCards] = useState([] as Array<number>);
   const context = useAuth();
@@ -18,11 +21,12 @@ export default function Battles() {
   const battleLevels = [1, 2, 3] as Array<1 | 2 | 3>;
 
   useEffect(() => {
-    if (context.token)
-      api.findCardsByUser(context.token).then((response) => {
-        setCardsUser(response.data);
-      });
-  }, [context.token]);
+    api.findCardsByUser(context.token).then((response) => {
+      setCardsUser(response.data);
+    });
+
+    api.findUser(context.token).then((response) => setUser(response.data));
+  }, []);
 
   function selectCards(id: number) {
     if (selectedCards.length === 3) {
@@ -43,6 +47,8 @@ export default function Battles() {
 
   return (
     <Container>
+      <TitleTopic>Battles Levels</TitleTopic>
+
       {levelSelected === null ? (
         <>
           {battleLevels.map((level) => (
@@ -50,6 +56,7 @@ export default function Battles() {
               key={level.toString()}
               level={level}
               action={() => setLevelSelected(level)}
+              userLevel={user.level}
             />
           ))}
         </>

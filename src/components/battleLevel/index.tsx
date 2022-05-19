@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Pokemon } from "../../interfaces/pokemonInterface";
 import api from "../../services/api";
-import { Container, Image, PokemonBox, Title } from "./style";
+import { Container, ContainerBlock, Image, PokemonBox, Title } from "./style";
+import { RiLock2Fill } from "react-icons/ri";
 
 interface Props {
   level: 1 | 2 | 3;
   action?: React.MouseEventHandler;
+  userLevel: string;
 }
 
-export default function BattleLevel({ level, action }: Props) {
+export default function BattleLevel({ level, action, userLevel }: Props) {
   const context = useAuth();
   const [pokemons, setPokemons] = useState([] as Array<Pokemon>);
 
@@ -19,13 +21,25 @@ export default function BattleLevel({ level, action }: Props) {
     });
   }, []);
 
+  function verifyLevel() {
+    if (parseInt(userLevel) + 1 < level) return false;
+    return action;
+  }
+
   return (
-    <Container onClick={action}>
+    <Container onClick={verifyLevel}>
+      {!verifyLevel() && (
+        <ContainerBlock>
+          <RiLock2Fill size={50} />
+          <span>Lock</span>
+        </ContainerBlock>
+      )}
+
       <Title>Level {level}</Title>
 
-      {pokemons.map((pokemon: any, i: number) => (
+      {pokemons.map((pokemon: Pokemon, i: number) => (
         <PokemonBox key={i}>
-          <Image src={pokemon.imageURL} />
+          <Image src={pokemon.imageURL} level={pokemon.category.name} />
           <span>{pokemon.name}</span>
         </PokemonBox>
       ))}
