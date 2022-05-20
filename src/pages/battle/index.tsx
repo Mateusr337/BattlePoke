@@ -16,6 +16,7 @@ import {
   UserInfo,
   Winner,
 } from "./style";
+import { FaRobot } from "react-icons/fa";
 
 export default function Battle() {
   const context = useAuth();
@@ -113,6 +114,7 @@ export default function Battle() {
   return (
     <Container>
       <UserInfo position="top">
+        <FaRobot size={50} color="#1a7e26" />
         <FlexColumn>
           <span>Bot</span>
           <span> Life: {lifeBot}</span>

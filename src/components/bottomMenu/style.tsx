@@ -5,7 +5,7 @@ export const Container = styled.div`
   height: 80px;
 
   background: #172b4d;
-  color: #ff9741;
+  color: #d6962a;
   padding: 0px 80px;
 
   font-size: 26px;
@@ -29,7 +29,7 @@ export const BattleButton = styled.div`
   width: 120px;
   height: 120px;
 
-  background: #ff9741;
+  background: #d6962a;
   border-radius: 50%;
   border: 8px solid #142b4d;
   color: #142b4d;

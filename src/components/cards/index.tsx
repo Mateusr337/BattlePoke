@@ -4,7 +4,7 @@ import { Pokemon } from "../../interfaces/pokemonInterface";
 import api from "../../services/api";
 import Card from "../card";
 import TitleTopic from "../titleTopic";
-import { Container, Text } from "./style";
+import { Container } from "./style";
 
 export default function Cards() {
   const context = useAuth();
@@ -29,9 +29,9 @@ export default function Cards() {
       {cardsList.length > 0 ? (
         cardsList.map((card, i) => <Card key={i} card={card} />)
       ) : (
-        <Text>
+        <span>
           you don't have any cards yet, click the "get new cards" button!
-        </Text>
+        </span>
       )}
     </Container>
   );

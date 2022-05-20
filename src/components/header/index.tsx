@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { MdForwardToInbox } from "react-icons/md";
 import ToReceiveNewCard from "../toReceiveNewCard";
 import Menu from "../menu";
+import { AxiosResponse } from "axios";
 
 export default function Header() {
   const context = useAuth();
@@ -25,20 +26,24 @@ export default function Header() {
       .catch(() => {
         toast.error("Failed with internal error. Please reload the page!");
       });
+
+    verifyToReceive();
   }, []);
 
-  useEffect(() => {
-    api.findCardsByUser(context.token).then(({ data }) => {
-      if (data.length < 3) return setToReceive("0");
+  function verifyToReceive() {
+    setInterval(() => {
+      api.findCardsByUser(context.token).then(({ data }: AxiosResponse) => {
+        if (data.length < 3) return setToReceive("0");
 
-      if (data.length < 5 && parseInt(user.level) >= 1)
-        return setToReceive("2");
-      if (data.length < 7 && parseInt(user.level) >= 2)
-        return setToReceive("2");
-      if (data.length < 7 && parseInt(user.level) >= 3)
-        return setToReceive("1");
-    });
-  }, []);
+        if (data.length < 5 && parseInt(user.level) >= 1)
+          return setToReceive("2");
+        if (data.length < 7 && parseInt(user.level) >= 2)
+          return setToReceive("2");
+        if (data.length < 7 && parseInt(user.level) >= 3)
+          return setToReceive("1");
+      });
+    }, 0.5 * 1000);
+  }
 
   function toggleShowMenu() {
     showMenu ? setShowMenu(false) : setShowMenu(true);

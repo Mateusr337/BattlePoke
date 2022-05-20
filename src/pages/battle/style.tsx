@@ -9,7 +9,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
 
-  background: lightgreen;
+  background: #ffffff;
   gap: 35px;
 
   display: flex;
@@ -22,7 +22,9 @@ export const UserInfo = styled.div<UserInfoProps>`
   width: 100%;
   height: 80px;
 
-  background: lightslategray;
+  background: #172b4d;
+  color: #d6962a;
+
   padding: 0px 20px;
   gap: 20px;
   display: flex;

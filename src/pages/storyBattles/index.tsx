@@ -25,6 +25,10 @@ export default function StoryBattle() {
         <BattleStory key={battle.id} battle={battle} />
       ))}
 
+      {battles.length === 0 && (
+        <span>Choose your cards and battle to check your evolution here!</span>
+      )}
+
       <BottomMenu />
     </Container>
   );
