@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ImageProps } from "../../interfaces/imageInterface";
 
 interface UserInfoProps {
   position: "top" | "bottom";
@@ -28,7 +29,6 @@ export const UserInfo = styled.div<UserInfoProps>`
   align-items: center;
 
   font-size: 26px;
-  font-family: "montserrat";
   font-weight: 600;
 
   position: fixed;
@@ -36,11 +36,16 @@ export const UserInfo = styled.div<UserInfoProps>`
   left: 0;
 `;
 
-export const Image = styled.img`
+export const Image = styled.div<ImageProps>`
   width: 65px;
   height: 65px;
 
   border-radius: 50%;
+
+  background: url(${(p) => p.src});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 `;
 
 export const FlexColumn = styled.div`
@@ -102,13 +107,11 @@ export const FinalBackground = styled.div`
 `;
 
 export const Winner = styled.span`
-  font-family: "MontSerrat";
   font-size: 32px;
   font-weight: 800;
 `;
 
 export const Text = styled.span`
-  font-family: "MontSerrat";
   font-size: 26px;
   font-weight: 500;
 `;

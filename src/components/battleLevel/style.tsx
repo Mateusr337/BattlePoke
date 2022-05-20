@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { ImageProps } from "../../interfaces/imageInterface";
 
 interface Props {
   level: string;
 }
 
-export const Container = styled.div`
+export const Container = styled.button`
   width: 100%;
 
   padding: 15px;
@@ -59,7 +60,7 @@ export const PokemonBox = styled.div`
   align-items: center;
 `;
 
-export const Image = styled.img<Props>`
+export const Image = styled.div<ImageProps & Props>`
   width: 100px;
   height: 90px;
 
@@ -72,4 +73,9 @@ export const Image = styled.img<Props>`
     }};
 
   border-radius: 50%;
+
+  background: url(${(p) => p.src});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;

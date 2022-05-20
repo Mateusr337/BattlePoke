@@ -7,6 +7,7 @@ import "./styles/reset.css";
 import "./styles/app.css";
 import Battles from "./pages/battles";
 import Battle from "./pages/battle";
+import StoryBattle from "./pages/storyBattles";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/battles" element={<Battles />} />
         <Route path="/battles/:id" element={<Battle />} />
+        <Route path="/StoryBattles" element={<StoryBattle />} />
       </Routes>
     </BrowserRouter>
   );

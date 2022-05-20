@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Card from "../../components/card";
 import useAuth from "../../hooks/useAuth";
+import { User } from "../../interfaces/userInterface";
 import api from "../../services/api";
 import {
   Container,
@@ -24,7 +25,7 @@ export default function Battle() {
   const [level, setLevel] = useState("0" as string);
   const [winner, setWinner] = useState("" as string);
 
-  const [user, setUser] = useState({} as any);
+  const [user, setUser] = useState({} as User);
   const [lifeUser, setLifeUser] = useState(50 as number);
   const [lifeBot, setLifeBot] = useState(50 as number);
   const [cardsUser, setCardsUser] = useState([] as Array<any>);
@@ -33,7 +34,7 @@ export default function Battle() {
   useEffect(() => {
     api.findUser(context.token).then((response) => setUser(response.data));
 
-    const battleId = parseInt(window.location.href.slice(-1));
+    const battleId = parseInt(window.location.href.split("/").slice(-1)[0]);
 
     api.findBattleById(context.token, battleId).then((response) => {
       setLevel(response.data.Level);
@@ -97,10 +98,16 @@ export default function Battle() {
   }
 
   function exitBattle() {
-    if (lifeBot < lifeUser) {
+    const battleId = parseInt(window.location.href.split("/").slice(-1)[0]);
+    const wins = lifeBot < lifeUser ? true : false;
+
+    if (lifeBot < lifeUser && user.level < level) {
       api.updateLevelUser(context.token, `${level}`);
     }
-    navigate("/profile");
+
+    api
+      .finishBattle(context.token, battleId, wins)
+      .finally(() => navigate("/profile"));
   }
 
   return (
@@ -140,8 +147,8 @@ export default function Battle() {
         <>
           <FinalScreen>
             <Winner>winner {winner}</Winner>
-            {winner !== "" && winner !== "Bot" && (
-              <Text>You leveled up {parseInt(user.level) + 1}</Text>
+            {winner !== "" && winner !== "Bot" && user.level < level && (
+              <Text>You leveled up {parseInt(level) + 1}</Text>
             )}
 
             <Button onClick={exitBattle}>Return to home</Button>

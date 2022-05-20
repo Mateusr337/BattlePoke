@@ -22,13 +22,13 @@ export default function BattleLevel({ level, action, userLevel }: Props) {
   }, []);
 
   function verifyLevel() {
-    if (parseInt(userLevel) + 1 < level) return false;
-    return action;
+    if (parseInt(userLevel) + 1 < level) return true;
+    return false;
   }
 
   return (
-    <Container onClick={verifyLevel}>
-      {!verifyLevel() && (
+    <Container disabled={verifyLevel()} onClick={action}>
+      {verifyLevel() && (
         <ContainerBlock>
           <RiLock2Fill size={50} />
           <span>Lock</span>

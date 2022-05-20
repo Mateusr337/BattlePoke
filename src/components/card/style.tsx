@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ImageProps } from "../../interfaces/imageInterface";
 interface Props {
   level: string;
   selected?: boolean;
@@ -26,9 +27,11 @@ export const Container = styled.div<Props>`
   }};
 
   gap: 5px;
+  padding: 10px;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   span {
     text-align: center;
@@ -37,11 +40,15 @@ export const Container = styled.div<Props>`
   }
 `;
 
-export const Image = styled.img`
-  width: 100%;
+export const Image = styled.div<ImageProps>`
+  width: 120px;
   height: 90px;
 
-  padding: 10px;
+  border-radius: 5px 5px 0 0;
+
+  background: url(${(p) => p.src});
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 export const Data = styled.div`
@@ -60,10 +67,11 @@ export const Data = styled.div`
 `;
 
 export const Types = styled.div`
-  height: 40px;
+  width: 100%;
 
   gap: 10px;
   margin: 0px 10px;
+  padding: 3px;
   background: #ffffff;
 
   display: flex;

@@ -8,7 +8,7 @@ import TitleTopic from "../../components/titleTopic";
 import useAuth from "../../hooks/useAuth";
 import { User } from "../../interfaces/userInterface";
 import api from "../../services/api";
-import { CardsContainer, Container } from "./style";
+import { ButtonContainer, CardsContainer, Container } from "./style";
 
 export default function Battles() {
   const [levelSelected, setLevelSelected] = useState(null as number | null);
@@ -30,9 +30,10 @@ export default function Battles() {
 
   function selectCards(id: number) {
     if (selectedCards.length === 3) {
-      setSelectedCards(selectedCards.slice(-2));
+      setSelectedCards([...selectedCards.slice(-2), id]);
+    } else {
+      setSelectedCards([...selectedCards, id]);
     }
-    setSelectedCards([...selectedCards, id]);
   }
 
   function startBattle() {
@@ -47,10 +48,10 @@ export default function Battles() {
 
   return (
     <Container>
-      <TitleTopic>Battles Levels</TitleTopic>
-
       {levelSelected === null ? (
         <>
+          <TitleTopic>Battles Levels</TitleTopic>
+
           {battleLevels.map((level) => (
             <BattleLevel
               key={level.toString()}
@@ -62,6 +63,8 @@ export default function Battles() {
         </>
       ) : (
         <CardsContainer>
+          <TitleTopic>Select 3 cards</TitleTopic>
+
           {cardsUser.map((card, i) => {
             let select: boolean = false;
             if (selectedCards.includes(card.id)) select = true;
@@ -78,11 +81,21 @@ export default function Battles() {
         </CardsContainer>
       )}
 
-      {selectedCards.length === 3 && (
-        <Button onClick={startBattle}>Start battle</Button>
+      {levelSelected !== null && (
+        <ButtonContainer>
+          {selectedCards.length === 3 ? (
+            <Button onClick={startBattle}>Start battle</Button>
+          ) : (
+            <Button disabled={true} onClick={startBattle}>
+              Select 3 cards
+            </Button>
+          )}
+        </ButtonContainer>
       )}
 
-      <BottomMenu />
+      <BottomMenu
+        disabledButtonCenter={levelSelected !== null ? false : true}
+      />
     </Container>
   );
 }

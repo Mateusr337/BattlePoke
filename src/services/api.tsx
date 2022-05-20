@@ -95,6 +95,22 @@ function updateLevelUser(token: string, newLevel: string) {
   return promise;
 }
 
+function findBattlesByUser(token: string) {
+  const promise = api.get("/storyBattles/users", config(token));
+  return promise;
+}
+
+function finishBattle(token: string, battleId: number, wins: boolean) {
+  const body = {
+    id: battleId,
+    wins,
+    finish: true,
+  };
+
+  const promise = api.patch("/battles", body, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -108,4 +124,6 @@ export default {
   findCardsByBattleAndUser,
   findBattleById,
   updateLevelUser,
+  findBattlesByUser,
+  finishBattle,
 };

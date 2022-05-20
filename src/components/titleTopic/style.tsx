@@ -7,6 +7,7 @@ export const Container = styled.div`
   gap: 15px;
   font-family: "Bungee Inline";
   font-weight: 900;
+  font-size: 26px;
 
   display: flex;
   align-items: center;

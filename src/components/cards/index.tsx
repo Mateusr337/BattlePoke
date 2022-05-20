@@ -19,7 +19,7 @@ export default function Cards() {
       api.findCardsByUser(context.token).then((response) => {
         if (response.data !== cardsList) setCardsList(response.data);
       });
-    }, 1 * 1000);
+    }, 0.5 * 1000);
   }
 
   return (

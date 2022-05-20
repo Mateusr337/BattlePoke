@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ImageProps } from "../../interfaces/imageInterface";
 
 export const Container = styled.div`
   width: 100%;
@@ -25,7 +26,7 @@ export const DivFlex = styled.div`
   align-items: center;
 `;
 
-export const UserImage = styled.img`
+export const UserImage = styled.div<ImageProps>`
   width: 65px;
   height: 65px;
 
@@ -33,6 +34,11 @@ export const UserImage = styled.img`
   border: 3px solid #d6962a;
 
   cursor: pointer;
+
+  background: url(${(p) => p.src});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 `;
 
 export const UserInfo = styled.div`
