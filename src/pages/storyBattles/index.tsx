@@ -15,7 +15,7 @@ export default function StoryBattle() {
     api
       .findBattlesByUser(context.token)
       .then((response) => setBattles(response.data));
-  }, []);
+  }, [context.token]);
 
   return (
     <Container>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BottomMenu from "../../components/bottomMenu";
 import Cards from "../../components/cards";
 import Header from "../../components/header";
