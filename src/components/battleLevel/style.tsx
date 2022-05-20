@@ -11,9 +11,9 @@ export const Container = styled.button`
   padding: 15px;
   border-radius: 15px;
   gap: 20px;
-  color: #ff9741;
 
   background: #363636;
+  color: #d6962a;
 
   display: flex;
   flex-wrap: wrap;
@@ -31,7 +31,7 @@ export const ContainerBlock = styled.div`
 
   background: #363636;
   border-radius: 15px;
-  color: #ff9741;
+  color: #d6962a;
 
   display: flex;
   flex-direction: column;

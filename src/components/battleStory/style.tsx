@@ -9,6 +9,7 @@ export const Container = styled.div`
   width: 80%;
 
   background: #363636;
+  color: #d6962a;
   padding: 20px;
   border-radius: 10px;
   gap: 15px;
