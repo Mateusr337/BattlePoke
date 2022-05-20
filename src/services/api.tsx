@@ -62,6 +62,55 @@ function createPokemonUser(token: string, cards: Array<number>) {
   return promise;
 }
 
+function findPokemonsByLevel(token: string, level: number) {
+  const promise = api.get(`/cards/battles/${level}`, config(token));
+  return promise;
+}
+
+function createBattle(
+  token: string,
+  level: number,
+  pokemonsIds: Array<number>
+) {
+  const promise = api.post("/battles", { pokemonsIds, level }, config(token));
+  return promise;
+}
+
+function findCardsByBattleAndUser(token: string, battleId: number) {
+  const promise = api.get(`/cards/users/battles/${battleId}`, config(token));
+  return promise;
+}
+
+function findBattleById(token: string, id: number) {
+  const promise = api.get(`/battles/${id}`, config(token));
+  return promise;
+}
+
+function updateLevelUser(token: string, newLevel: string) {
+  const promise = api.patch(
+    `/users/upLevels`,
+    { level: newLevel },
+    config(token)
+  );
+  return promise;
+}
+
+function findBattlesByUser(token: string) {
+  const promise = api.get("/storyBattles/users", config(token));
+  return promise;
+}
+
+function finishBattle(token: string, battleId: number, wins: boolean) {
+  const body = {
+    id: battleId,
+    wins,
+    finish: true,
+  };
+
+  const promise = api.patch("/battles", body, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -70,4 +119,11 @@ export default {
   findCardsByUser,
   findCards,
   createPokemonUser,
+  findPokemonsByLevel,
+  createBattle,
+  findCardsByBattleAndUser,
+  findBattleById,
+  updateLevelUser,
+  findBattlesByUser,
+  finishBattle,
 };

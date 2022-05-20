@@ -4,11 +4,10 @@ export const Container = styled.div`
   width: 100%;
   height: 80px;
 
-  background: #528f92;
+  background: #172b4d;
   color: #ff9741;
   padding: 0px 80px;
 
-  font-family: "Montserrat";
   font-size: 26px;
   font-weight: 900;
 
@@ -30,9 +29,11 @@ export const BattleButton = styled.div`
   width: 120px;
   height: 120px;
 
-  background: #ffffff;
+  background: #ff9741;
   border-radius: 50%;
-  border: 7px solid #ff9741;
+  border: 8px solid #142b4d;
+  color: #142b4d;
+  font-size: 20px;
 
   display: flex;
   align-items: center;

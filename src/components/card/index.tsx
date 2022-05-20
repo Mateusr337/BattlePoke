@@ -1,4 +1,4 @@
-import { CardsByUser } from "../../interfaces/cardsByUserInterface";
+import { Pokemon } from "../../interfaces/pokemonInterface";
 import Electric from "../pokemonsTypes/electric";
 import Fire from "../pokemonsTypes/fire";
 import Flying from "../pokemonsTypes/flying";
@@ -11,47 +11,40 @@ import Water from "../pokemonsTypes/water";
 import { Container, Data, Image, Types } from "./style";
 
 interface Props {
-  action?: any;
+  action?: React.MouseEventHandler;
   selected?: boolean;
+  card: Pokemon;
 }
 
-export default function Card({ card, action, selected }: CardsByUser & Props) {
+export default function Card({ card, action, selected }: Props) {
   return (
     <Container
       onClick={action}
-      level={card.pokemon.pokemonLevel.name}
+      level={card.category.name}
       selected={selected}
+      life={card.life}
     >
-      <Image src={card.pokemon.imageURL} />
+      <Image src={card.imageURL} />
+
+      <span>{card.name}</span>
 
       <Types>
-        {card.pokemon.PokemonTypePokemon.map(
-          (PokemonTypePokemon: any, i: number) => {
-            if (PokemonTypePokemon.pokemonType.name === "water")
-              return <Water key={i} />;
-            if (PokemonTypePokemon.pokemonType.name === "fire")
-              return <Fire key={i} />;
-            if (PokemonTypePokemon.pokemonType.name === "plant")
-              return <Plant key={i} />;
-            if (PokemonTypePokemon.pokemonType.name === "normal")
-              return <Normal key={i} />;
-            if (PokemonTypePokemon.pokemonType.name === "flying")
-              return <Flying key={i} />;
-            if (PokemonTypePokemon.pokemonType.name === "electric")
-              return <Electric key={i} />;
-            if (PokemonTypePokemon.pokemonType.name === "insect")
-              return <Insect key={i} />;
-            if (PokemonTypePokemon.pokemonType.name === "psychic")
-              return <Psychic key={i} />;
-            if (PokemonTypePokemon.pokemonType.name === "poisonous")
-              return <Poisonous key={i} />;
-          }
-        )}
+        {card.types.map((type: any, i: number) => {
+          if (type.name === "water") return <Water key={i} />;
+          if (type.name === "fire") return <Fire key={i} />;
+          if (type.name === "plant") return <Plant key={i} />;
+          if (type.name === "normal") return <Normal key={i} />;
+          if (type.name === "flying") return <Flying key={i} />;
+          if (type.name === "electric") return <Electric key={i} />;
+          if (type.name === "insect") return <Insect key={i} />;
+          if (type.name === "psychic") return <Psychic key={i} />;
+          if (type.name === "poisonous") return <Poisonous key={i} />;
+        })}
       </Types>
 
       <Data>
-        <span>Attack: {card.pokemon.attack}</span>
-        <span>Life: {card.pokemon.life}</span>
+        <span>Attack: {card.attack}</span>
+        <span>Life: {card.life}</span>
       </Data>
     </Container>
   );

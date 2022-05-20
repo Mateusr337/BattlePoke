@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Button from "../Button";
 import { Container } from "./style";
+import { IoMdLogOut } from "react-icons/io";
 
 export default function Menu() {
   const context = useAuth();
@@ -14,8 +15,9 @@ export default function Menu() {
 
   return (
     <Container>
-      <Button color="#000000" onClick={logoff}>
-        logout
+      <Button color="#172b4d" onClick={logoff}>
+        <IoMdLogOut fontWeight={900} />
+        <span>logout</span>
       </Button>
     </Container>
   );

@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import errorsMessage from "../../utils/errorsMessage";
+import Logo from "../../components/logo";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ export default function RegisterPage() {
     <Container>
       <ToastContainer limit={1} position={"top-center"} />
 
-      <Text>BattlePoke</Text>
+      <Logo />
 
       <Form onSubmit={(e) => validInputs(e)}>
         <Input
@@ -106,7 +107,7 @@ export default function RegisterPage() {
             type="button"
             disabled={isLoading}
             color="#D6962A"
-            background="#528F92"
+            background="#172b4d"
             onClick={() => navigate("/")}
           >
             I already have an account
