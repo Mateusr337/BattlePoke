@@ -4,7 +4,8 @@ import api from "../../services/api";
 import Button from "../Button";
 import Card from "../card";
 import Cards from "../cards";
-import { Container, Footer, Title } from "./style";
+import TitleTopic from "../titleTopic";
+import { Container, Footer } from "./style";
 
 interface Props {
   level: string;
@@ -15,18 +16,12 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
   const context = useAuth();
 
   const [cards, setCards] = useState([] as Array<any>);
-  const [numberOfCards, setNumberOfCards] = useState("null" as string);
   const [selectedCards, setSelectedCards] = useState([] as Array<any>);
 
   useEffect(() => {
     api.findCards(context.token).then((response) => {
       setCards(response.data);
     });
-
-    if (level === "0") setNumberOfCards("3");
-    if (level === "1") setNumberOfCards("2");
-    if (level === "2") setNumberOfCards("2");
-    if (level === "3") setNumberOfCards("1");
   }, []);
 
   useEffect(() => {
@@ -39,7 +34,7 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
     if (selectedCards.length > 2 && level === "2")
       setSelectedCards(selectedCards.slice(-2));
 
-    if (selectedCards.length > 1 && level === "3")
+    if (selectedCards.length > 1 && level >= "3")
       setSelectedCards(selectedCards.slice(-1));
   }, [selectedCards]);
 
@@ -47,7 +42,7 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
     if (selectedCards.length < 3 && level === "0") return;
     if (selectedCards.length < 2 && level === "1") return;
     if (selectedCards.length < 2 && level === "2") return;
-    if (selectedCards.length < 1 && level === "3") return;
+    if (selectedCards.length < 1 && level >= "3") return;
 
     api.createPokemonUser(context.token, selectedCards).then((response) => {
       setToReceiveScreen(false);
@@ -56,7 +51,7 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
 
   return (
     <Container>
-      <Title>Chose {numberOfCards} cards</Title>
+      <TitleTopic>Select cards</TitleTopic>
 
       {cards.map((card: any) => {
         let selected;
@@ -80,8 +75,8 @@ export default function ToReceiveNewCard({ level, setToReceiveScreen }: Props) {
       })}
 
       <Footer>
-        <Button onClick={getCards} background="#1AB81F">
-          Chose
+        <Button onClick={getCards} background="#D6962A">
+          Receive
         </Button>
       </Footer>
     </Container>

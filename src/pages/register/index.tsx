@@ -1,7 +1,7 @@
 import Button from "../../components/Button";
 import { Form } from "../../components/form";
 import { Input } from "../../components/input";
-import { Buttons, Container, Text } from "./styles";
+import { Buttons, Container } from "./styles";
 import handleChange from "../../utils/handleChangeInput";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";

@@ -12,16 +12,3 @@ export const Container = styled.div`
 
   overflow-y: scroll;
 `;
-
-export const Text = styled.span`
-  width: 100%;
-  height: 200px;
-
-  font-size: 26px;
-  font-weight: 500;
-  padding: 0px 35px;
-  text-align: center;
-
-  display: flex;
-  align-items: center;
-`;
