@@ -55,7 +55,7 @@ export default function Battle() {
   }, [cardsUser.length, render]);
 
   useEffect(() => {
-    if (lifeBot <= 0 || lifeUser <= 0) {
+    if ((lifeBot <= 0 || lifeUser <= 0) && winner === "") {
       setWinner(lifeBot < lifeUser ? user.name : "Bot");
     }
   }, [lifeBot, lifeUser]);
@@ -106,15 +106,19 @@ export default function Battle() {
       api.updateLevelUser(context.token, `${level}`);
     }
 
-    api
-      .finishBattle(context.token, battleId, wins)
-      .finally(() => navigate("/profile"));
+    api.finishBattle(context.token, battleId, wins).finally(() => {
+      if (lifeBot < lifeUser) {
+        navigate(`/receive/${level}`);
+      } else {
+        navigate("/profile");
+      }
+    });
   }
 
   return (
     <Container>
       <UserInfo position="top">
-        <FaRobot size={50} color="#1a7e26" />
+        <FaRobot size={50} color="#C0C0C0" />
         <FlexColumn>
           <span>Bot</span>
           <span> Life: {lifeBot}</span>

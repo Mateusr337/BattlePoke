@@ -8,6 +8,7 @@ import "./styles/app.css";
 import Battles from "./pages/battles";
 import Battle from "./pages/battle";
 import StoryBattle from "./pages/storyBattles";
+import ToReceiveNewCard from "./pages/toReceiveNewCard";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/battles" element={<Battles />} />
         <Route path="/battles/:id" element={<Battle />} />
         <Route path="/StoryBattles" element={<StoryBattle />} />
+        <Route path="/receive/:level" element={<ToReceiveNewCard />} />
       </Routes>
     </BrowserRouter>
   );

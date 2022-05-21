@@ -6,15 +6,16 @@ import { Container, DivFlex, ToReceive, UserImage, UserInfo } from "./style";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdForwardToInbox } from "react-icons/md";
-import ToReceiveNewCard from "../toReceiveNewCard";
+import ToReceiveNewCard from "../../pages/toReceiveNewCard";
 import Menu from "../menu";
 import { AxiosResponse } from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const context = useAuth();
+  const navigate = useNavigate();
   const [user, setUser] = useState({} as User);
   const [toReceive, setToReceive] = useState("false" as string);
-  const [toReceiveScreen, setToReceiveScreen] = useState(false as boolean);
   const [showMenu, setShowMenu] = useState(false as boolean);
 
   useEffect(() => {
@@ -27,23 +28,10 @@ export default function Header() {
         toast.error("Failed with internal error. Please reload the page!");
       });
 
-    verifyToReceive();
+    api.findCardsByUser(context.token).then(({ data }: AxiosResponse) => {
+      if (data.length < 3 && toReceive === "false") setToReceive("0");
+    });
   }, []);
-
-  function verifyToReceive() {
-    setInterval(() => {
-      api.findCardsByUser(context.token).then(({ data }: AxiosResponse) => {
-        if (data.length < 3) return setToReceive("0");
-
-        if (data.length < 5 && parseInt(user.level) >= 1)
-          return setToReceive("2");
-        if (data.length < 7 && parseInt(user.level) >= 2)
-          return setToReceive("2");
-        if (data.length < 7 && parseInt(user.level) >= 3)
-          return setToReceive("1");
-      });
-    }, 0.5 * 1000);
-  }
 
   function toggleShowMenu() {
     showMenu ? setShowMenu(false) : setShowMenu(true);
@@ -64,19 +52,12 @@ export default function Header() {
         {showMenu && <Menu />}
 
         {toReceive !== "false" && (
-          <ToReceive onClick={() => setToReceiveScreen(true)}>
+          <ToReceive onClick={() => navigate(`/receive/0`)}>
             <MdForwardToInbox size={30} color={"#d6962a"} />
             <span>Get new cards</span>
           </ToReceive>
         )}
       </Container>
-
-      {toReceiveScreen && toReceive !== "false" && (
-        <ToReceiveNewCard
-          level={user.level}
-          setToReceiveScreen={setToReceiveScreen}
-        />
-      )}
 
       <ToastContainer limit={1} position={"top-center"} />
     </>
