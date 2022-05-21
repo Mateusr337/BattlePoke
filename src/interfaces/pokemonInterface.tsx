@@ -4,6 +4,7 @@ export interface Pokemon {
   imageURL: string;
   attack: number;
   life: number;
+  evolution: string | null;
   types: Array<Type>;
   category: Category;
 }

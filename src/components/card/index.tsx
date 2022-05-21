@@ -8,15 +8,34 @@ import Plant from "../pokemonsTypes/plant";
 import Poisonous from "../pokemonsTypes/poisonous";
 import Psychic from "../pokemonsTypes/psychic";
 import Water from "../pokemonsTypes/water";
-import { Container, Data, Image, Types } from "./style";
+import { Container, Data, EvolutionContainer, Image, Types } from "./style";
+import { BsArrowUpSquareFill } from "react-icons/bs";
+import { useEffect, useState } from "react";
+import api from "../../services/api";
+import useAuth from "../../hooks/useAuth";
+import { User } from "../../interfaces/userInterface";
 
 interface Props {
   action?: React.MouseEventHandler;
   selected?: boolean;
   card: Pokemon;
+  userPoints?: number;
 }
 
-export default function Card({ card, action, selected }: Props) {
+export default function Card({ card, action, selected, userPoints }: Props) {
+  const context = useAuth();
+  const [evolution, setEvolution] = useState(null as null | Pokemon);
+  const [user, setUser] = useState({} as User);
+
+  useEffect(() => {
+    card.evolution &&
+      api.findPokemonByName(context.token, card.evolution).then((response) => {
+        setEvolution(response.data);
+      });
+
+    api.findUser(context.token).then((response) => setUser(response.data));
+  }, []);
+
   return (
     <Container
       onClick={action}
@@ -24,6 +43,12 @@ export default function Card({ card, action, selected }: Props) {
       selected={selected}
       life={card.life}
     >
+      {evolution && user.points >= 5 && (
+        <EvolutionContainer>
+          <BsArrowUpSquareFill size={20} />
+        </EvolutionContainer>
+      )}
+
       <Image src={card.imageURL} />
 
       <span>{card.name}</span>

@@ -111,6 +111,11 @@ function finishBattle(token: string, battleId: number, wins: boolean) {
   return promise;
 }
 
+function findPokemonByName(token: string, name: string) {
+  const promise = api.get(`/cards/${name}`, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -126,4 +131,5 @@ export default {
   updateLevelUser,
   findBattlesByUser,
   finishBattle,
+  findPokemonByName,
 };

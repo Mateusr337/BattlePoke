@@ -4,4 +4,5 @@ export interface User {
   imageURL: string;
   email: string;
   level: string;
+  points: number;
 }

@@ -33,6 +33,8 @@ export const Container = styled.div<Props>`
   flex-direction: column;
   align-items: center;
 
+  position: relative;
+
   span {
     text-align: center;
     font-family: "montserrat";
@@ -82,4 +84,14 @@ export const Types = styled.div`
     width: 30px;
     height: 30px;
   }
+`;
+
+export const EvolutionContainer = styled.div`
+  color: #142b4d;
+
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+
+  cursor: pointer;
 `;
