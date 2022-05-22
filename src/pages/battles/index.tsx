@@ -28,11 +28,13 @@ export default function Battles() {
     api.findUser(context.token).then((response) => setUser(response.data));
   }, []);
 
-  function selectCards(id: number) {
+  function selectCards(key: number) {
+    if (selectedCards.includes(key)) return;
+
     if (selectedCards.length === 3) {
-      setSelectedCards([...selectedCards.slice(-2), id]);
+      setSelectedCards([...selectedCards.slice(-2), key]);
     } else {
-      setSelectedCards([...selectedCards, id]);
+      setSelectedCards([...selectedCards, key]);
     }
   }
 
@@ -67,14 +69,14 @@ export default function Battles() {
 
           {cardsUser.map((card, i) => {
             let select: boolean = false;
-            if (selectedCards.includes(card.id)) select = true;
+            if (selectedCards.includes(i)) select = true;
 
             return (
               <Card
                 selected={select}
                 key={i}
                 card={card}
-                action={() => selectCards(card.id)}
+                action={() => selectCards(i)}
               />
             );
           })}

@@ -27,7 +27,9 @@ export default function Cards() {
       <TitleTopic>Your cards</TitleTopic>
 
       {cardsList.length > 0 ? (
-        cardsList.map((card, i) => <Card key={i} card={card} />)
+        cardsList.map((card, i) => (
+          <Card showEvolutionButton={true} key={i} card={card} />
+        ))
       ) : (
         <span>
           you don't have any cards yet, click the "get new cards" button!

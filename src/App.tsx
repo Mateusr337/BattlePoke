@@ -9,6 +9,8 @@ import Battles from "./pages/battles";
 import Battle from "./pages/battle";
 import StoryBattle from "./pages/storyBattles";
 import ToReceiveNewCard from "./pages/toReceiveNewCard";
+import Evolutions from "./pages/evolution";
+import { Pokemon } from "./interfaces/pokemonInterface";
 
 function App() {
   return (
@@ -21,6 +23,10 @@ function App() {
         <Route path="/battles/:id" element={<Battle />} />
         <Route path="/StoryBattles" element={<StoryBattle />} />
         <Route path="/receive/:level" element={<ToReceiveNewCard />} />
+        <Route
+          path="/evolutions/:pokemon/:newPokemon"
+          element={<Evolutions />}
+        />
       </Routes>
     </BrowserRouter>
   );

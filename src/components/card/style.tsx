@@ -88,10 +88,17 @@ export const Types = styled.div`
 
 export const EvolutionContainer = styled.div`
   color: #142b4d;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   position: absolute;
-  bottom: 0;
+  bottom: 5px;
   right: 5px;
+
+  overflow: hidden;
 
   cursor: pointer;
 `;

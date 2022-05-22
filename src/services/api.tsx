@@ -116,6 +116,11 @@ function findPokemonByName(token: string, name: string) {
   return promise;
 }
 
+function evolutionPokemon(token: string, pokemonId: number) {
+  const promise = api.patch("/cards/evolution", { pokemonId }, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -132,4 +137,5 @@ export default {
   findBattlesByUser,
   finishBattle,
   findPokemonByName,
+  evolutionPokemon,
 };

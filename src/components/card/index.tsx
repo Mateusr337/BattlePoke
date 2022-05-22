@@ -14,16 +14,24 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import useAuth from "../../hooks/useAuth";
 import { User } from "../../interfaces/userInterface";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   action?: React.MouseEventHandler;
   selected?: boolean;
   card: Pokemon;
-  userPoints?: number;
+  showEvolutionButton?: true;
 }
 
-export default function Card({ card, action, selected, userPoints }: Props) {
+export default function Card({
+  card,
+  action,
+  selected,
+  showEvolutionButton,
+}: Props) {
   const context = useAuth();
+  const navigate = useNavigate();
+
   const [evolution, setEvolution] = useState(null as null | Pokemon);
   const [user, setUser] = useState({} as User);
 
@@ -36,6 +44,13 @@ export default function Card({ card, action, selected, userPoints }: Props) {
     api.findUser(context.token).then((response) => setUser(response.data));
   }, []);
 
+  function evolve() {
+    evolution &&
+      api.evolutionPokemon(context.token, card.id).then((response) => {
+        navigate(`/evolutions/${card.name}/${evolution.name}`);
+      });
+  }
+
   return (
     <Container
       onClick={action}
@@ -43,8 +58,8 @@ export default function Card({ card, action, selected, userPoints }: Props) {
       selected={selected}
       life={card.life}
     >
-      {evolution && user.points >= 5 && (
-        <EvolutionContainer>
+      {evolution && user.points >= 5 && showEvolutionButton && (
+        <EvolutionContainer onClick={evolve}>
           <BsArrowUpSquareFill size={20} />
         </EvolutionContainer>
       )}
