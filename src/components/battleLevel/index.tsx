@@ -31,6 +31,7 @@ export default function BattleLevel({ level, action, userLevel }: Props) {
       {verifyLevel() && (
         <ContainerBlock>
           <RiLock2Fill size={50} />
+
           <span>Lock</span>
         </ContainerBlock>
       )}
@@ -40,6 +41,7 @@ export default function BattleLevel({ level, action, userLevel }: Props) {
       {pokemons.map((pokemon: Pokemon, i: number) => (
         <PokemonBox key={i}>
           <Image src={pokemon.imageURL} level={pokemon.category.name} />
+
           <span>{pokemon.name}</span>
         </PokemonBox>
       ))}
