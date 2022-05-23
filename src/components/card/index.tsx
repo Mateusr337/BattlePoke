@@ -60,8 +60,10 @@ export default function Card({
 
   function remove() {
     api.removeCard(context.token, card.id);
+
     const index = list?.indexOf(card);
     let newList = list;
+
     index && newList?.splice(index, 1);
     newList && setList([...newList]);
   }

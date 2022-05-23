@@ -35,7 +35,6 @@ export default function Cards() {
     const filteredCards = cards.filter(
       (card: Pokemon) => card.category.name === name
     );
-
     setCardsList([...filteredCards]);
   }
 
