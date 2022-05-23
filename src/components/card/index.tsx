@@ -23,6 +23,8 @@ interface Props {
   card: Pokemon;
   profile?: true;
   shake?: true;
+  list?: Array<Pokemon>;
+  setList?: any;
 }
 
 export default function Card({
@@ -31,6 +33,8 @@ export default function Card({
   selected,
   profile,
   shake,
+  list,
+  setList,
 }: Props) {
   const context = useAuth();
   const navigate = useNavigate();
@@ -49,13 +53,19 @@ export default function Card({
 
   function evolve() {
     evolution &&
-      api.evolutionPokemon(context.token, card.id).then((response) => {
+      api.evolutionPokemon(context.token, card.id).then(() => {
         navigate(`/evolutions/${card.name}/${evolution.name}`);
       });
   }
 
   function remove() {
     api.removeCard(context.token, card.id);
+
+    const index = list?.indexOf(card);
+    let newList = list;
+
+    index && newList?.splice(index, 1);
+    newList && setList([...newList]);
   }
 
   return (
