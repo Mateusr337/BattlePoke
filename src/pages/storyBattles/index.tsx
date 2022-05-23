@@ -21,8 +21,8 @@ export default function StoryBattle() {
     <Container>
       <TitleTopic>story battles</TitleTopic>
 
-      {battles.map((battle: Battle) => (
-        <BattleStory key={battle.id} battle={battle} />
+      {battles.map((battle: Battle, i: number) => (
+        <BattleStory key={i} battle={battle} />
       ))}
 
       {battles.length === 0 && (

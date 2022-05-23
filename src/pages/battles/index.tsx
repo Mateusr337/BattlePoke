@@ -6,40 +6,50 @@ import Button from "../../components/Button";
 import Card from "../../components/card";
 import TitleTopic from "../../components/titleTopic";
 import useAuth from "../../hooks/useAuth";
+import { Pokemon } from "../../interfaces/pokemonInterface";
 import { User } from "../../interfaces/userInterface";
 import api from "../../services/api";
 import { ButtonContainer, CardsContainer, Container } from "./style";
 
 export default function Battles() {
+  const context = useAuth();
+  const navigate = useNavigate();
+
   const [levelSelected, setLevelSelected] = useState(null as number | null);
   const [user, setUser] = useState({} as User);
   const [cardsUser, setCardsUser] = useState([] as Array<any>);
   const [selectedCards, setSelectedCards] = useState([] as Array<number>);
-  const context = useAuth();
-  const navigate = useNavigate();
+  const [selectedIds, setSelectedIds] = useState([] as Array<number>);
 
-  const battleLevels = [1, 2, 3] as Array<1 | 2 | 3>;
+  const battleLevels = [1, 2, 3, 4, 5, 6, 7, 8] as Array<1 | 2 | 3>;
 
   useEffect(() => {
     api.findCardsByUser(context.token).then((response) => {
+      response.data.sort((a: Pokemon, b: Pokemon) => {
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      });
       setCardsUser(response.data);
     });
 
     api.findUser(context.token).then((response) => setUser(response.data));
   }, []);
 
-  function selectCards(id: number) {
+  function selectCards(key: number, id: number) {
+    if (selectedCards.includes(key)) return;
+
     if (selectedCards.length === 3) {
-      setSelectedCards([...selectedCards.slice(-2), id]);
+      setSelectedCards([...selectedCards.slice(-2), key]);
+      setSelectedIds([...selectedIds.slice(-2), id]);
     } else {
-      setSelectedCards([...selectedCards, id]);
+      setSelectedCards([...selectedCards, key]);
+      setSelectedIds([...selectedIds, id]);
     }
   }
 
   function startBattle() {
     levelSelected !== null &&
       api
-        .createBattle(context.token, levelSelected, selectedCards)
+        .createBattle(context.token, levelSelected, selectedIds)
         .then((response) => {
           const battleId = response.data.id;
           navigate(`/battles/${battleId}`);
@@ -67,14 +77,14 @@ export default function Battles() {
 
           {cardsUser.map((card, i) => {
             let select: boolean = false;
-            if (selectedCards.includes(card.id)) select = true;
+            if (selectedCards.includes(i)) select = true;
 
             return (
               <Card
                 selected={select}
                 key={i}
                 card={card}
-                action={() => selectCards(card.id)}
+                action={() => selectCards(i, card.id)}
               />
             );
           })}
@@ -87,7 +97,7 @@ export default function Battles() {
             <Button onClick={startBattle}>Start battle</Button>
           ) : (
             <Button disabled={true} onClick={startBattle}>
-              Select 3 cards
+              Select cards
             </Button>
           )}
         </ButtonContainer>

@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { ImageProps } from "../../interfaces/imageInterface";
 
 interface UserInfoProps {
   position: "top" | "bottom";
+  life: number;
 }
 
 export const Container = styled.div`
@@ -23,7 +24,7 @@ export const UserInfo = styled.div<UserInfoProps>`
   height: 80px;
 
   background: #172b4d;
-  color: #d6962a;
+  color: ${(p) => (p.life < 400 ? "darkred" : "#d6962a")};
 
   padding: 0px 20px;
   gap: 20px;

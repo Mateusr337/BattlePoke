@@ -49,6 +49,11 @@ export const UserInfo = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  div {
+    display: flex;
+    gap: 30px;
+  }
 `;
 
 export const ToReceive = styled.div`

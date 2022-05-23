@@ -45,7 +45,10 @@ export default function Header() {
 
           <UserInfo>
             <span>{user.name}</span>
-            <span>Level {user.level}</span>
+            <div>
+              <span>Level {user.level}</span>
+              <span>{user.points} evolution points</span>
+            </div>
           </UserInfo>
         </DivFlex>
 

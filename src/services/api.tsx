@@ -111,6 +111,21 @@ function finishBattle(token: string, battleId: number, wins: boolean) {
   return promise;
 }
 
+function findPokemonByName(token: string, name: string) {
+  const promise = api.get(`/cards/${name}`, config(token));
+  return promise;
+}
+
+function evolutionPokemon(token: string, pokemonId: number) {
+  const promise = api.patch("/cards/evolution", { pokemonId }, config(token));
+  return promise;
+}
+
+function removeCard(token: string, id: number) {
+  const promise = api.delete(`/cards/${id}`, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -126,4 +141,7 @@ export default {
   updateLevelUser,
   findBattlesByUser,
   finishBattle,
+  findPokemonByName,
+  evolutionPokemon,
+  removeCard,
 };

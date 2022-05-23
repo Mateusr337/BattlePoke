@@ -56,9 +56,10 @@ export default function ToReceiveNewCard() {
         let filter: string = "";
         if (level === 0) filter = "common";
         if (level === 1) filter = "rare";
-        if (level === 2) filter = "epic";
+        if (level === 2) filter = "rare";
         if (level === 3) filter = "epic";
-        if (level > 3) filter = "";
+        if (level === 4) filter = "epic";
+        if (level > 4) filter = "";
 
         if (card.category.name.includes(filter))
           return (
