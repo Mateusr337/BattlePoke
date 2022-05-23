@@ -17,6 +17,7 @@ export default function Menu() {
     <Container>
       <Button color="#172b4d" onClick={logoff}>
         <IoMdLogOut fontWeight={900} />
+
         <span>logout</span>
       </Button>
     </Container>
