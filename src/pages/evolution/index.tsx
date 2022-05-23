@@ -4,7 +4,7 @@ import TitleTopic from "../../components/titleTopic";
 import useAuth from "../../hooks/useAuth";
 import { Pokemon } from "../../interfaces/pokemonInterface";
 import api from "../../services/api";
-import { Container, Evolving } from "./style";
+import { Arrow, ArrowContainer, Container, Evolving } from "./style";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,11 @@ export default function Evolutions() {
       <Evolving>
         {pokemon && <Card card={pokemon} />}
 
-        <MdOutlineDoubleArrow size={50} color="#d6962a" />
+        <ArrowContainer>
+          <Arrow>
+            <MdOutlineDoubleArrow size={50} color="#d6962a" />
+          </Arrow>
+        </ArrowContainer>
 
         {evolution && <Card card={evolution} />}
       </Evolving>

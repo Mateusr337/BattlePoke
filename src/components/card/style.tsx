@@ -4,6 +4,11 @@ interface Props {
   level: string;
   selected?: boolean;
   life?: number;
+  shake?: true;
+}
+
+interface LifeProps {
+  shake?: true;
 }
 
 export const Container = styled.div<Props>`
@@ -25,6 +30,31 @@ export const Container = styled.div<Props>`
     (p.life || p.life === 0) && (color = p.life <= 0 ? "#000000" : "#f5e15e");
     return color;
   }};
+
+  ${(p) =>
+    p.shake &&
+    `
+    animation: shake .2s;
+    animation-iteration-count: 4;
+  `}
+
+  @keyframes shake {
+    0% {
+      margin-left: 0;
+    }
+    25% {
+      margin-left: 7px;
+    }
+    50% {
+      margin-left: 0;
+    }
+    75% {
+      margin-left: -7px;
+    }
+    100% {
+      margin-left: 0;
+    }
+  }
 
   gap: 5px;
   padding: 10px;
@@ -86,11 +116,9 @@ export const Types = styled.div`
   }
 `;
 
-export const EvolutionContainer = styled.div`
-  color: #142b4d;
-  border-radius: 50%;
-
+export const IconsContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -101,4 +129,8 @@ export const EvolutionContainer = styled.div`
   overflow: hidden;
 
   cursor: pointer;
+`;
+
+export const Life = styled.span<LifeProps>`
+  ${(p) => p.shake && "color: darkred;"}
 `;

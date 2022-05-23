@@ -121,6 +121,11 @@ function evolutionPokemon(token: string, pokemonId: number) {
   return promise;
 }
 
+function removeCard(token: string, id: number) {
+  const promise = api.delete(`/cards/${id}`, config(token));
+  return promise;
+}
+
 export default {
   createUser,
   validUser,
@@ -138,4 +143,5 @@ export default {
   finishBattle,
   findPokemonByName,
   evolutionPokemon,
+  removeCard,
 };

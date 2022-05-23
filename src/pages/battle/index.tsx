@@ -25,10 +25,11 @@ export default function Battle() {
   const [render, setRender] = useState(0 as number);
   const [level, setLevel] = useState("0" as string);
   const [winner, setWinner] = useState("" as string);
+  const [shake, setShake] = useState(null as null | "bot" | "user");
 
   const [user, setUser] = useState({} as User);
-  const [lifeUser, setLifeUser] = useState(50 as number);
-  const [lifeBot, setLifeBot] = useState(50 as number);
+  const [lifeUser, setLifeUser] = useState(1000 as number);
+  const [lifeBot, setLifeBot] = useState(1000 as number);
   const [cardsUser, setCardsUser] = useState([] as Array<any>);
   const [cardsBot, setCardsBot] = useState([] as Array<any>);
 
@@ -61,17 +62,24 @@ export default function Battle() {
   }, [lifeBot, lifeUser]);
 
   async function startRound() {
-    if (cardsBot.length > 0 && cardsBot.length > 0) {
+    if (
+      cardsBot.length > 0 &&
+      cardsBot.length > 0 &&
+      lifeBot > 0 &&
+      lifeUser > 0
+    ) {
       setTimeout(() => {
         damage(cardsUser, cardsBot, setCardsBot, setLifeBot, lifeBot);
-      }, 1 * 1000);
+        setShake("bot");
+      }, 2 * 1000);
 
       setTimeout(() => {
         damage(cardsBot, cardsUser, setCardsUser, setLifeUser, lifeUser);
-      }, 2 * 1000);
+        lifeBot > 0 && setShake("user");
+      }, 4 * 1000);
     }
 
-    setTimeout(() => setRender(render + 1), 2 * 1000);
+    setTimeout(() => setRender(render + 1), 4 * 1000);
   }
 
   function damage(
@@ -81,7 +89,7 @@ export default function Battle() {
     setLifeDefense: React.Dispatch<SetStateAction<number>>,
     lifeDefense: number
   ) {
-    if (winner !== "") return "finished";
+    if (winner !== "") return "finish";
 
     const cards = cardsDefense;
 
@@ -117,7 +125,7 @@ export default function Battle() {
 
   return (
     <Container>
-      <UserInfo position="top">
+      <UserInfo position="top" life={lifeBot}>
         <FaRobot size={50} color="#C0C0C0" />
         <FlexColumn>
           <span>Bot</span>
@@ -128,18 +136,30 @@ export default function Battle() {
       <Field>
         {cardsBot.length !== 0 &&
           cardsBot.map((card: any, i: any) => {
-            return <Card key={i} card={card} />;
+            return (
+              <Card
+                key={i}
+                card={card}
+                shake={shake === "bot" && card.life > 0 ? true : undefined}
+              />
+            );
           })}
       </Field>
 
       <Field>
         {cardsUser !== null &&
           cardsUser.map((card: any, i: number) => {
-            return <Card key={i} card={card} />;
+            return (
+              <Card
+                key={i}
+                card={card}
+                shake={shake === "user" && card.life > 0 ? true : undefined}
+              />
+            );
           })}
       </Field>
 
-      <UserInfo position="bottom">
+      <UserInfo position="bottom" life={lifeUser}>
         <Image src={user.imageURL} />
 
         <FlexColumn>

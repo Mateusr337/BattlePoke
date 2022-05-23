@@ -8,8 +8,9 @@ import Plant from "../pokemonsTypes/plant";
 import Poisonous from "../pokemonsTypes/poisonous";
 import Psychic from "../pokemonsTypes/psychic";
 import Water from "../pokemonsTypes/water";
-import { Container, Data, EvolutionContainer, Image, Types } from "./style";
-import { BsArrowUpSquareFill } from "react-icons/bs";
+import { Container, Data, IconsContainer, Image, Life, Types } from "./style";
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import useAuth from "../../hooks/useAuth";
@@ -20,14 +21,16 @@ interface Props {
   action?: React.MouseEventHandler;
   selected?: boolean;
   card: Pokemon;
-  showEvolutionButton?: true;
+  profile?: true;
+  shake?: true;
 }
 
 export default function Card({
   card,
   action,
   selected,
-  showEvolutionButton,
+  profile,
+  shake,
 }: Props) {
   const context = useAuth();
   const navigate = useNavigate();
@@ -51,17 +54,30 @@ export default function Card({
       });
   }
 
+  function remove() {
+    api.removeCard(context.token, card.id);
+  }
+
   return (
     <Container
       onClick={action}
       level={card.category.name}
       selected={selected}
       life={card.life}
+      shake={shake}
     >
-      {evolution && user.points >= 5 && showEvolutionButton && (
-        <EvolutionContainer onClick={evolve}>
-          <BsArrowUpSquareFill size={20} />
-        </EvolutionContainer>
+      {profile && (
+        <IconsContainer>
+          {evolution && user.points >= 5 && (
+            <BsFillArrowUpCircleFill
+              color="#FF6600"
+              size={18}
+              onClick={evolve}
+            />
+          )}
+
+          <RiDeleteBin2Fill color="darkred" size={22} onClick={remove} />
+        </IconsContainer>
       )}
 
       <Image src={card.imageURL} />
@@ -84,7 +100,7 @@ export default function Card({
 
       <Data>
         <span>Attack: {card.attack}</span>
-        <span>Life: {card.life}</span>
+        <Life shake={shake}>Life: {card.life}</Life>
       </Data>
     </Container>
   );

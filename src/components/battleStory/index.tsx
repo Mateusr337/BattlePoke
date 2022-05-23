@@ -38,12 +38,8 @@ export default function BattleStory({ battle }: Props) {
           <span>{user.name}</span>
 
           <DivFlex>
-            {cardsUser.map((card: Pokemon) => (
-              <Image
-                level={card.category.name}
-                key={card.id}
-                src={card.imageURL}
-              />
+            {cardsUser.map((card: Pokemon, i: number) => (
+              <Image level={card.category.name} key={i} src={card.imageURL} />
             ))}
           </DivFlex>
         </User>
@@ -52,12 +48,8 @@ export default function BattleStory({ battle }: Props) {
           <span>Bot level {battle.Level}</span>
 
           <DivFlex>
-            {cardsBot.map((card: Pokemon) => (
-              <Image
-                level={card.category.name}
-                key={card.id}
-                src={card.imageURL}
-              />
+            {cardsBot.map((card: Pokemon, i: number) => (
+              <Image level={card.category.name} key={i} src={card.imageURL} />
             ))}
           </DivFlex>
         </User>
