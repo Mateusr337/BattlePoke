@@ -40,7 +40,7 @@ export default function Cards() {
 
   return (
     <Container>
-      <TitleTopic>Your cards</TitleTopic>
+      <TitleTopic>your cards</TitleTopic>
 
       <Buttons>
         <Button onClick={() => findPokemons()}>all</Button>
@@ -62,7 +62,7 @@ export default function Cards() {
         ))
       ) : (
         <span>
-          you don't have any cards yet, click the "get new cards" button!
+          you don't have any cards yet, click in "get new cards" button!
         </span>
       )}
     </Container>
