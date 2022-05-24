@@ -14,6 +14,7 @@ interface LifeProps {
 export const Container = styled.div<Props>`
   width: 150px;
   height: 200px;
+  font-size: 14px;
 
   border: 3px solid
     ${(p) => {
@@ -67,13 +68,18 @@ export const Container = styled.div<Props>`
 
   span {
     text-align: center;
-    font-family: "montserrat";
-    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    width: 100px;
+    height: auto;
+
+    font-size: 8px;
   }
 `;
 
 export const Image = styled.div<ImageProps>`
-  width: 120px;
+  width: 100%;
   height: 90px;
 
   border-radius: 5px 5px 0 0;
@@ -81,14 +87,15 @@ export const Image = styled.div<ImageProps>`
   background: url(${(p) => p.src});
   background-repeat: no-repeat;
   background-size: cover;
+
+  @media (max-width: 600px) {
+    height: 40px;
+  }
 `;
 
 export const Data = styled.div`
   width: 100%;
   min-height: 40px;
-
-  font-family: "Montserrat";
-  font-weight: 600;
 
   padding: 0px 10px;
 
@@ -109,11 +116,6 @@ export const Types = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  img {
-    width: 30px;
-    height: 30px;
-  }
 `;
 
 export const IconsContainer = styled.div`
@@ -133,4 +135,24 @@ export const IconsContainer = styled.div`
 
 export const Life = styled.span<LifeProps>`
   ${(p) => p.shake && "color: darkred;"}
+`;
+
+export const Dead = styled.span`
+  width: 100%;
+
+  color: darkred;
+  font-size: 28px;
+  font-family: "Bungee Inline";
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 58%;
+  left: 0;
+
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
 `;

@@ -24,6 +24,10 @@ export const ArrowContainer = styled.div`
   height: 20px;
 
   position: relative;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const Arrow = styled.div`

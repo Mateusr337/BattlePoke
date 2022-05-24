@@ -41,4 +41,11 @@ export const ButtonContainer = styled.div`
   z-index: 5;
 
   overflow: hidden;
+
+  @media (max-width: 600px) {
+    width: 70px;
+    height: 70px;
+
+    bottom: 3px;
+  }
 `;

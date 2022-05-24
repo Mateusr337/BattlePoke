@@ -11,6 +11,12 @@ export const Container = styled.div`
 
   display: flex;
   align-items: center;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
 `;
 
 export const Title = styled.div`

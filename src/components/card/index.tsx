@@ -8,9 +8,18 @@ import Plant from "../pokemonsTypes/plant";
 import Poisonous from "../pokemonsTypes/poisonous";
 import Psychic from "../pokemonsTypes/psychic";
 import Water from "../pokemonsTypes/water";
-import { Container, Data, IconsContainer, Image, Life, Types } from "./style";
+import {
+  Container,
+  Data,
+  Dead,
+  IconsContainer,
+  Image,
+  Life,
+  Types,
+} from "./style";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import { GiChewedSkull } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import useAuth from "../../hooks/useAuth";
@@ -25,6 +34,7 @@ interface Props {
   shake?: true;
   list?: Array<Pokemon>;
   setList?: any;
+  life?: number;
 }
 
 export default function Card({
@@ -35,6 +45,7 @@ export default function Card({
   shake,
   list,
   setList,
+  life,
 }: Props) {
   const context = useAuth();
   const navigate = useNavigate();
@@ -81,12 +92,12 @@ export default function Card({
           {evolution && user.points >= 5 && (
             <BsFillArrowUpCircleFill
               color="#FF6600"
-              size={18}
+              size={15}
               onClick={evolve}
             />
           )}
 
-          <RiDeleteBin2Fill color="darkred" size={22} onClick={remove} />
+          <RiDeleteBin2Fill color="darkred" size={18} onClick={remove} />
         </IconsContainer>
       )}
 
@@ -112,6 +123,13 @@ export default function Card({
         <span>Attack: {card.attack}</span>
         <Life shake={shake}>Life: {card.life}</Life>
       </Data>
+
+      {life !== undefined && life <= 0 && (
+        <Dead>
+          <span>dead</span>
+          <GiChewedSkull size={30} color="darkred" />
+        </Dead>
+      )}
     </Container>
   );
 }

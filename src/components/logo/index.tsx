@@ -5,7 +5,11 @@ export default function Logo() {
   return (
     <Container>
       <Text>BattlePoke</Text>
-      <MdCatchingPokemon size={60} color={"#d6962a"} />
+      <MdCatchingPokemon
+        className="CatchingPokemonIcon"
+        size={60}
+        color={"#d6962a"}
+      />
     </Container>
   );
 }

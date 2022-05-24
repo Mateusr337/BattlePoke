@@ -14,4 +14,8 @@ export const Container = styled.div`
   position: fixed;
   top: 95px;
   left: 30px;
+
+  @media (max-width: 600px) {
+    top: 60px;
+  }
 `;

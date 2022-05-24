@@ -11,7 +11,7 @@ const Button = styled.button<Props>`
 
   padding: 10px;
   color: ${(p) => (p.color ? `${p.color}` : "#172B4D")};
-  background: ${(p) => (p.background ? `${p.background}` : "#d6962a")};
+  background: ${(p) => (p.background ? `${p.background}` : "#D6962A")};
   border-radius: 6px;
   border: none;
   opacity: ${(p) => p.disabled && "0.5"};
@@ -24,6 +24,13 @@ const Button = styled.button<Props>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @media (max-width: 600px) {
+    height: 12px;
+
+    font-size: 10px;
+    font-weight: 400;
+  }
 `;
 
 export default Button;

@@ -25,18 +25,41 @@ export const UserInfo = styled.div<UserInfoProps>`
 
   background: #172b4d;
   color: ${(p) => (p.life < 400 ? "darkred" : "#d6962a")};
-
   padding: 0px 20px;
-  gap: 20px;
+  gap: 70px;
   display: flex;
   align-items: center;
 
   font-size: 26px;
   font-weight: 600;
 
+  display: flex;
+  justify-content: center;
+
   position: fixed;
   ${(p) => p.position}: 0;
   left: 0;
+
+  h1 {
+    position: absolute;
+    top: 45%;
+    left: 40px;
+
+    color: #d6962a;
+  }
+
+  @media (max-width: 600px) {
+    height: 50px;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    gap: 15px;
+
+    .IconBot {
+      width: 30px;
+    }
+  }
 `;
 
 export const Image = styled.div<ImageProps>`
@@ -49,6 +72,11 @@ export const Image = styled.div<ImageProps>`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+
+  @media (max-width: 600px) {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 export const FlexColumn = styled.div`
@@ -64,6 +92,12 @@ export const Field = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+`;
+
+export const AttackInfo = styled.div`
+  display: flex;
+  gap: 20px;
 `;
 
 export const FinalScreen = styled.div`
@@ -86,6 +120,10 @@ export const FinalScreen = styled.div`
   margin: auto;
 
   z-index: 2;
+
+  @media (max-width: 600px) {
+    width: 95%;
+  }
 `;
 
 export const FinalBackground = styled.div`
@@ -112,9 +150,39 @@ export const FinalBackground = styled.div`
 export const Winner = styled.span`
   font-size: 32px;
   font-weight: 800;
+
+  @media (max-width: 600px) {
+    font-size: 22px;
+    font-weight: 400;
+  }
 `;
 
 export const Text = styled.span`
   font-size: 26px;
   font-weight: 500;
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+    font-weight: 400;
+  }
+`;
+
+export const InfoBattle = styled.div`
+  width: 200px;
+
+  border-radius: 10px;
+  border: 2px solid darkred;
+
+  display: flex;
+  text-align: center;
+
+  position: fixed;
+  top: 40%;
+  right: 25px;
+  z-index: 1;
+
+  @media (max-width: 600px) {
+    top: 60px;
+    font-size: 11px;
+  }
 `;
