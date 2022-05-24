@@ -20,4 +20,9 @@ export const Input = styled.input`
   &:disabled {
     background: #f2f2f2;
   }
+
+  @media (max-width: 600px) {
+    height: 30px;
+    font-size: 11px;
+  }
 `;
