@@ -47,6 +47,11 @@ export const Title = styled.div`
   font-size: 25px;
   font-weight: 700;
   text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 15px;
+    font-weight: 400;
+  }
 `;
 
 export const PokemonBox = styled.div`
@@ -58,6 +63,11 @@ export const PokemonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 600px) {
+    font-size: 10px;
+    font-weight: 400;
+  }
 `;
 
 export const Image = styled.div<ImageProps & Props>`
@@ -78,4 +88,9 @@ export const Image = styled.div<ImageProps & Props>`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+
+  @media (max-width: 600px) {
+    width: 50px;
+    height: 40px;
+  }
 `;

@@ -9,4 +9,9 @@ export const Img = styled.div<ImageProps>`
   background-repeat: no-repeat;
   background-size: cover;
   background-size: center center;
+
+  @media (max-width: 600px) {
+    width: 10px;
+    height: 10px;
+  }
 `;

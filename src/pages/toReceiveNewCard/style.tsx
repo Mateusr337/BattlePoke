@@ -34,4 +34,11 @@ export const Footer = styled.div`
   position: fixed;
   bottom: 80px;
   right: 120px;
+
+  @media (max-width: 600px) {
+    padding: 10px;
+
+    bottom: 30px;
+    right: 30px;
+  }
 `;

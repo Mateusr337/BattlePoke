@@ -94,9 +94,11 @@ export default function Battles() {
       {levelSelected !== null && (
         <ButtonContainer>
           {selectedCards.length === 3 ? (
-            <Button onClick={startBattle}>Start battle</Button>
+            <Button onClick={startBattle} background="#F99640">
+              Start battle
+            </Button>
           ) : (
-            <Button disabled={true} onClick={startBattle}>
+            <Button disabled={true} onClick={startBattle} background="#F99640">
               Select cards
             </Button>
           )}

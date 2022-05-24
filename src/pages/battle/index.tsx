@@ -12,11 +12,13 @@ import {
   FinalScreen,
   FlexColumn,
   Image,
+  InfoBattle,
   Text,
   UserInfo,
   Winner,
 } from "./style";
 import { FaRobot } from "react-icons/fa";
+import { Pokemon } from "../../interfaces/pokemonInterface";
 
 export default function Battle() {
   const context = useAuth();
@@ -28,8 +30,8 @@ export default function Battle() {
   const [shake, setShake] = useState(null as null | "bot" | "user");
 
   const [user, setUser] = useState({} as User);
-  const [lifeUser, setLifeUser] = useState(1000 as number);
-  const [lifeBot, setLifeBot] = useState(1000 as number);
+  const [lifeUser, setLifeUser] = useState(500 as number);
+  const [lifeBot, setLifeBot] = useState(500 as number);
   const [cardsUser, setCardsUser] = useState([] as Array<any>);
   const [cardsBot, setCardsBot] = useState([] as Array<any>);
 
@@ -71,20 +73,20 @@ export default function Battle() {
       setTimeout(() => {
         damage(cardsUser, cardsBot, setCardsBot, setLifeBot, lifeBot);
         setShake("bot");
-      }, 2 * 1000);
+      }, 1 * 1000);
 
       setTimeout(() => {
         damage(cardsBot, cardsUser, setCardsUser, setLifeUser, lifeUser);
         lifeBot > 0 && setShake("user");
-      }, 4 * 1000);
+      }, 2 * 1000);
     }
 
-    setTimeout(() => setRender(render + 1), 4 * 1000);
+    setTimeout(() => setRender(render + 1), 2 * 1000);
   }
 
   function damage(
-    cardsAttack: Array<any>,
-    cardsDefense: Array<any>,
+    cardsAttack: Array<Pokemon>,
+    cardsDefense: Array<Pokemon>,
     setCardsDefense: React.Dispatch<SetStateAction<Array<any>>>,
     setLifeDefense: React.Dispatch<SetStateAction<number>>,
     lifeDefense: number
@@ -94,9 +96,10 @@ export default function Battle() {
     const cards = cardsDefense;
 
     cardsAttack.map((pokemon: any, i: number) => {
+      if (pokemon.life <= 0) return;
       const damage = pokemon.attack;
 
-      if (parseInt(cardsDefense[i].life) > 0) {
+      if (cardsDefense[i].life > 0) {
         cards[i].life -= damage;
       } else {
         setLifeDefense(lifeDefense - damage);
@@ -126,7 +129,10 @@ export default function Battle() {
   return (
     <Container>
       <UserInfo position="top" life={lifeBot}>
-        <FaRobot size={50} color="#C0C0C0" />
+        <h1>{shake === "user" && "Attack"}</h1>
+
+        <FaRobot size={50} color="#C0C0C0" className="IconBot" />
+
         <FlexColumn>
           <span>Bot</span>
           <span> Life: {lifeBot}</span>
@@ -135,31 +141,43 @@ export default function Battle() {
 
       <Field>
         {cardsBot.length !== 0 &&
-          cardsBot.map((card: any, i: any) => {
+          cardsBot.map((card: Pokemon, i: number) => {
             return (
               <Card
+                life={card.life}
                 key={i}
                 card={card}
-                shake={shake === "bot" && card.life > 0 ? true : undefined}
+                shake={
+                  shake === "bot" && cardsUser[i].life > 0 && card.life > 0
+                    ? true
+                    : undefined
+                }
               />
             );
           })}
       </Field>
 
       <Field>
-        {cardsUser !== null &&
-          cardsUser.map((card: any, i: number) => {
+        {cardsUser.length !== 0 &&
+          cardsUser.map((card: Pokemon, i: number) => {
             return (
               <Card
+                life={card.life}
                 key={i}
                 card={card}
-                shake={shake === "user" && card.life > 0 ? true : undefined}
+                shake={
+                  shake === "user" && cardsBot[i].life > 0 && card.life > 0
+                    ? true
+                    : undefined
+                }
               />
             );
           })}
       </Field>
 
       <UserInfo position="bottom" life={lifeUser}>
+        <h1>{shake === "bot" && "Attack"}</h1>
+
         <Image src={user.imageURL} />
 
         <FlexColumn>
@@ -183,6 +201,10 @@ export default function Battle() {
           <FinalBackground />
         </>
       )}
+
+      <InfoBattle>
+        The battle ends when your or the robot's life ends!
+      </InfoBattle>
     </Container>
   );
 }

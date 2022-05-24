@@ -23,6 +23,12 @@ export const Container = styled.div`
   span {
     cursor: pointer;
   }
+
+  @media (max-width: 600px) {
+    height: 40px;
+    font-size: 13px;
+    padding: 0px 20px;
+  }
 `;
 
 export const BattleButton = styled.div`
@@ -46,4 +52,13 @@ export const BattleButton = styled.div`
   margin: auto;
 
   cursor: pointer;
+
+  @media (max-width: 600px) {
+    width: 70px;
+    height: 70px;
+
+    font-size: 13px;
+
+    bottom: 3px;
+  }
 `;

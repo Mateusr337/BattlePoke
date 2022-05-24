@@ -61,4 +61,9 @@ export const Image = styled.div<ImageProps & Props>`
       if (p.level === "epic") return "orange;";
       if (p.level === "mythical") return "gold;";
     }};
+
+  @media (max-width: 600px) {
+    width: 35px;
+    height: 30px;
+  }
 `;
