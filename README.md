@@ -33,7 +33,7 @@ Back end in: https://github.com/Mateusr337/BattlePoke_API
 
 ```bash
 # Clone this repo
-$ git clone https://github.com/Mateusr337/RepoTest.git
+$ git clone https://github.com/Mateusr337/BattlePoke.git
 
 # Clone the back-end repository and follow the instructions to run
 $ git clone https://github.com/Mateusr337/BattlePoke_API.git
