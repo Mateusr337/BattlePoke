@@ -7,13 +7,13 @@
 ![battlepokemobile](https://user-images.githubusercontent.com/92904799/170090644-3834df6a-6d81-417a-9e32-339e4bf35108.gif)
 
 
-##  :link: About
+##  :link: sobre
 
-An application of an Pokemon card battle game where each player initially receives 3 cards and can start to battle and gain evolution points. When you beat a level the next one is unlocked, totaling 8 levels. You can also add 5 evolution points and if the pokemon has an evolution you can evolve it and still see its battle history.
+Uma aplicação de um jogo de batalha de cartas Pokémon onde cada jogador recebe inicialmente 3 cartas e pode começar a batalhar e ganhar pontos de evolução. Ao vencer um nível o próximo é desbloqueado, totalizando 8 níveis. Você também pode adicionar 5 pontos de evolução e se o pokemon tiver uma evolução você pode evoluí-lo e ainda ver seu histórico de batalhas.
 
-Back end in: https://github.com/Mateusr337/BattlePoke_API
+Back end no link: https://github.com/Mateusr337/BattlePoke_API
 
-## :woman_technologist: Technologies
+## :woman_technologist: Tecnologias
 
 <p align="center">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
@@ -30,19 +30,18 @@ Back end in: https://github.com/Mateusr337/BattlePoke_API
   
 </p>
 
-## :tada: How to run
+## :tada: Executar
 
 ```bash
-# Clone this repo
-$ git clone https://github.com/Mateusr337/BattlePoke.git
+# Primriro clone esse repositŕio
 
-# Clone the back-end repository and follow the instructions to run
+# Clone o back-end no link
 $ git clone https://github.com/Mateusr337/BattlePoke_API.git
 
-# install the dependencies
+# instale as dependências
 $ npm i
 
-# to run in dev
+# Rode em ambiente de desenvolvimento
 $ npm run start
 
 
